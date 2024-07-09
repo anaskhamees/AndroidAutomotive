@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Define a list of options
+options=("Display date" "Display current directory" "Display system uptime" "Exit")
+
+# Display a menu using select
+PS3="Select an option (enter the number): "
+select choice in "${options[@]}"
+do
+    case $REPLY in
+        1)
+            echo "Today's date is: $(date +%Y-%m-%d)"
+            ;;
+        2)
+            echo "Current directory: $(pwd)"
+            ;;
+        3)
+            echo "System uptime:"
+            uptime
+            ;;
+        4)
+            echo "Exiting..."
+            break
+            ;;
+        *)
+            echo "Invalid option. Please choose again."
+            ;;
+    esac
+done
+

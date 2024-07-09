@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Declare an array
+arr=("anas kh" "belal Hu" "mohamed" "ali" "hussien")
+echo "Array without quotes @: "
+echo ${arr[@]}
+
+echo "Array with quotes @: "
+echo "${arr[@]}"
+
+echo "Array with quotes *:"
+echo "${arr[*]}"
+
+for i in ${arr[@]};do
+	echo $i
+done
+
+echo "====================================="
+echo ${#arr[*]}

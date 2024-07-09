@@ -1,0 +1,89 @@
+#include <iostream>
+#include <typeinfo>
+
+enum class Type
+{
+    INT,
+    Double,
+    Char
+};
+
+template<typename T>
+class VPointerArray
+{
+    int size;
+    T** arr;
+public:
+    VPointerArray(int x)
+    {
+        size = x;
+        arr = new T*[size];
+    }
+
+    ~VPointerArray()
+    {
+        delete[] arr;
+    }
+
+    void setVal(T* data, int index)
+    {
+        arr[index] = data;
+    }
+
+    T* getVal(int index)
+    {
+        return arr[index];
+    }
+
+    int getArrSize()
+    {
+        return size;
+    }
+
+    Type getDataType(int index)
+    {
+        // Example: Assuming T is the actual type stored
+        if (typeid(T) == typeid(int))
+            return Type::INT;
+        else if (typeid(T) == typeid(double))
+            return Type::Double;
+        else if (typeid(T) == typeid(char))
+            return Type::Char;
+        else
+            return Type::Char;  // Handle other types as needed
+    }
+
+    void print()
+    {
+        for (int i = 0; i < size; i++)
+        {
+            switch (getDataType(i)) {
+                case Type::INT:
+                    std::cout << *static_cast<int*>(arr[i]) << std::endl;
+                    break;
+                case Type::Double:
+                    std::cout << *static_cast<double*>(arr[i]) << std::endl;
+                    break;
+                case Type::Char:
+                    std::cout << *static_cast<char*>(arr[i]) << std::endl;
+                    break;
+            }
+        }
+    }
+};
+
+int main()
+{
+    VPointerArray<int> vp(3);
+    int x1 = 1;
+    double x2 = 2.5;
+    char x3 = 'a';
+
+    vp.setVal(&x1, 0);
+    vp.setVal(&x2, 1);
+    vp.setVal(&x3, 2);
+    vp.print();
+
+    return 0;
+}
+

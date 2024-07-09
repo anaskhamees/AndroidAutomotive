@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# define list of options for user
+options=("Display date and Time" "List file in current directory" "Display current disk usage" "Exit")
+
+#Display a menu using select 
+
+PS3="Select your option : "
+
+select options in "${options[@]}"
+do 
+	case $REPLY in
+		1)
+			echo "The date is : $(date +%Y-%m-%d)"
+			;;
+		2)
+			echo "The files in Current Directory: $(ls)"
+			;;
+		3)
+			echo "The current Disk usage: $(df -h)"
+			;;
+		4)	
+			echo "Exiting........"
+			break
+			;;
+		*)
+			echo "Invaild option , choose another on.."
+			;;
+	esac
+done
+		
