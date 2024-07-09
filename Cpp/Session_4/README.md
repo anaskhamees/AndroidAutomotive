@@ -16,16 +16,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 ## 1. Struct in C++
 
 - Can create Constructor and Destructor.
