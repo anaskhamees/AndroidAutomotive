@@ -104,7 +104,7 @@ The kernel is the core component of the operating system that manages system res
     - **Networking**: Processes like `netns` and `inet_frag_wq` are related to network namespaces and handling network fragments.
 
 
-  
+
 
 ```bash
 ps -aux
@@ -683,7 +683,7 @@ ps -at
 
 - **Example to create a process and kill it correctly**
 
-```
+```c
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -933,9 +933,7 @@ renice -5 -p 1234
 
 - **Nice Value**: Determines a process's priority relative to other processes. Lower nice values indicate higher priority (more favorable scheduling by the OS).
 
-- Commands
-
-  :
+- Commands:
 
   - **ps**: Displays information about active processes.
   - **nice**: Adjusts the scheduling priority of a command at launch.
@@ -958,7 +956,7 @@ In Linux, signals are software interrupts that can be sent to processes to notif
    - Command Example: Sending SIGINT to a process.
 
      ```bash
-  kill -2 <PID>
+    kill -2 <PID>
      ```
      
      - Replace `<PID>` with the Process ID of the process you want to send the signal to. You can find the PID using `ps` command.
@@ -970,7 +968,7 @@ In Linux, signals are software interrupts that can be sent to processes to notif
    - Command Example: Sending SIGKILL to a process.
 
      ```bash
-  kill -9 <PID>
+    kill -9 <PID>
      ```
      
      - Replace `<PID>` with the Process ID.
@@ -982,7 +980,7 @@ In Linux, signals are software interrupts that can be sent to processes to notif
    - Command Example: Sending SIGTERM to a process.
 
      ```bash
-  kill -15 <PID>
+    kill -15 <PID>
      ```
      
      - Replace `<PID>` with the Process ID.
@@ -991,14 +989,12 @@ In Linux, signals are software interrupts that can be sent to processes to notif
 
    - **Purpose**: Hangup signal, often used to instruct a process to reload configuration files or restart.
 
-   - Command Example
-
-     : Sending SIGHUP to a process.
+   - Command Example: Sending SIGHUP to a process.
 
      ```bash
-     kill -1 <PID>
+  kill -1 <PID>
      ```
-
+     
      - Replace `<PID>` with the Process ID.
 
 5. **SIGSTOP (19)**:
@@ -1033,20 +1029,18 @@ To send a signal to a process, you use the `kill` command followed by the signal
 
    - Use `kill`with the appropriate signal option:
 
-   -  `-2`for SIGINT, 
-
-     `-9`for SIGKILL, etc.) followed by the PID.
+   -  `-2`for SIGINT, `-9`for SIGKILL, etc.) followed by the PID.
 
      ```bash
      kill -<signal_number> <PID>
      ```
-
+     
      - For example, to send SIGKILL (9) to Firefox:
 
        ```bash
        kill -9 <PID>
        ```
-
+     
        - Replace `<PID>` with the actual Process ID obtained from the previous step.
 
 
