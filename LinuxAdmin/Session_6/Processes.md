@@ -683,8 +683,8 @@ ps -at
 
 - **Example to create a process and kill it correctly**
 
-```c
-cCopy code#include <stdio.h>
+```
+#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/types.h>
@@ -778,9 +778,12 @@ int main() {
 
 **Running the Program:**
 
-- Compile the program using a C compiler (`gcc -o fork_example fork_example.c`).
-- Run the executable (`./fork_example`).
+- Compile the program using a C compiler (`gcc -o creatProcess CreatProcess.c`).
+- Run the executable (`./creatProcess`).
 - Follow the instructions printed in the terminal to interact with the parent and child processes, particularly to kill the child process using its PID from another terminal session.
+------------------------------------------------------------
+[CreateProcess&Kill.webm](https://github.com/anaskhamees/AndroidAutomotive/assets/52020047/f28400af-140e-49a8-863e-8c3469129a61)
+
 
 -------------------------------------------------------------
 
