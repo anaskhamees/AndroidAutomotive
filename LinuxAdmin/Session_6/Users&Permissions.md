@@ -967,6 +967,32 @@ When the setuid bit is set on an executable file, it allows users to execute the
    echo -e "#!/bin/bash\n echo 'Current user: $(whoami)'" > test_script.sh
    ```
 
+   >- **`echo -e`**:
+   >
+   >  - `echo` is a command that prints text to the terminal.
+   >
+   >  - The `-e` option enables interpretation of backslash escapes, allowing special characters like `\n` (newline) to be processed.
+   >
+   >- **`#!/bin/bash`**:
+   >
+   >  - This is the shebang line that tells the system to use the Bash shell to interpret the script.
+   >
+   >  - `#!/bin/bash` ensures that the script will run in the Bash shell environment.
+   >
+   >- **`\n`**:
+   >  - This represents a newline character, which moves the cursor to the next line in the script.
+   >
+   >- **`echo 'Current user: $(whoami)'`**:
+   >
+   >  - This is the actual command within the script that prints the current user's name.
+   >
+   >  - `$(whoami)` is a command substitution that gets replaced by the output of the `whoami` command, which returns the username of the current user.
+   >
+   >- **`> test_script.sh`**:
+   >  - This redirects the output of the `echo` command to a file named `test_script.sh`, effectively creating or overwriting the file with the script content.
+   >
+   >
+
 2. **Make the Script Executable:**
 
    ```bash
@@ -987,11 +1013,44 @@ When the setuid bit is set on an executable file, it allows users to execute the
      sudo chmod u+s test_script.sh
      ```
 
+     >1. **`sudo`**:
+     >   - `sudo` stands for "superuser do."
+     >   - It allows a permitted user to execute a command as the superuser (root) or another user, as specified by the security policy.
+     >   - In this command, `sudo` is used because changing the setuid bit on a file typically requires superuser privileges.
+     >2. **`chmod`**:
+     >   - `chmod`  stands for change mode ,is a Unix command used to change the file system modes or permissions of files and directories.
+     >3. **`u+s`**:
+     >   - `u` refers to the user (the owner of the file).
+     >   - `+s` adds the setuid (Set User ID) bit to the file's permissions.
+     >   - When the setuid bit is set on an executable file, it means that the file will be executed with the privileges of the file's owner rather than the user who is running the file.
+     >4. **`test_script.sh`**:
+     >   - This is the name of the file to which the command is being applied.
+     >
+     >
+
    - **Numeric Mode:**
 
      ```bash
      sudo chmod 4755 test_script.sh
      ```
+     
+     >1. **sudo**: Runs the command with superuser (root) privileges. This is necessary to change the permissions to certain special modes like the setuid bit.
+     >2. **chmod 4755**: Changes the permissions of the file. The numeric mode `4755` has specific meanings:
+     >   - `4`: This sets the setuid bit. When a file with the setuid bit set is executed, the process that runs this file will have the privileges of the file's owner, rather than the privileges of the user who is running the file.
+     >   - `7`: The owner (user) has read (`4`), write (`2`), and execute (`1`) permissions.
+     >   - `5`: The group has read (`4`) and execute (`1`) permissions.
+     >   - `5`: Others (everyone else) have read (`4`) and execute (`1`) permissions.
+     >
+     >So, the permissions `4755` mean:
+     >
+     >- The setuid bit is set.
+     >- The owner can read, write, and execute the file.
+     >- The group can read and execute the file.
+     >- Others can read and execute the file.
+     >
+     >1. **test_script.sh**: This is the file whose permissions are being changed.
+     >
+     >
 
 5. **Verify Permissions:**
 
@@ -1005,6 +1064,51 @@ When the setuid bit is set on an executable file, it allows users to execute the
    -rwsr-xr-x 1 root root 32 Jul 10 12:00 test_script.sh
    ```
 
+   >- `-rwsr-xr-x`
+   >
+   >  :
+   >
+   >  - The first character (`-`) indicates the file type. In this case, `-` means it is a regular file.
+   >
+   >  - The next nine characters (
+   >
+   >    ```
+   >    rwsr-xr-x
+   >    ```
+   >
+   >    ) represent the file permissions:
+   >
+   >    - `rws`: The owner's permissions. The owner can read (`r`), write (`w`), and execute (`x`) the file. The `s` instead of `x` indicates that the setuid bit is set, meaning the file will run with the owner's privileges.
+   >    - `r-x`: The group's permissions. The group can read (`r`) and execute (`x`) the file, but not write (`-`).
+   >    - `r-x`: The permissions for others (everyone else). Others can read (`r`) and execute (`x`) the file, but not write (`-`).
+   >
+   >##### Links
+   >
+   >- **`1`**: The number of hard links to the file. In this case, there is one link.
+   >
+   >##### Owner and Group
+   >
+   >- `root root`
+   >
+   >  :
+   >
+   >  - The first `root` indicates the file's owner.
+   >  - The second `root` indicates the file's group.
+   >
+   >##### Size
+   >
+   >- **`32`**: The size of the file in bytes. This file is 32 bytes.
+   >
+   >##### Timestamp
+   >
+   >- **`Jul 10 12:00`**: The last modification date and time of the file. This file was last modified on July 10th at 12:00.
+   >
+   >##### File Name
+   >
+   >- **`test_script.sh`**: The name of the file.
+   >
+   >
+
 6. **Run the Script:**
 
    ```bash
@@ -1017,13 +1121,11 @@ When the setuid bit is set on an executable file, it allows users to execute the
    Current user: root
    ```
 
-### 2. Setgid (Set Group ID)
+#### 3.4.2. Setgid (Set Group ID)
 
 When the setgid bit is set on a directory, files created within the directory inherit the group ownership of the directory rather than the primary group of the user who created the file. For executable files, it allows users to run the file with the permissions of the file's group.
 
-#### Example and Commands
-
-**Step-by-Step Explanation:**
+#### Example 
 
 1. **Create a Directory:**
 
@@ -1079,7 +1181,7 @@ When the setgid bit is set on a directory, files created within the directory in
    - **`g+s`**: Adds the Setgid bit. The `g` specifies the group, and `+s` adds the Setgid bit.
    - **`test_dir`**: The directory on which the Setgid bit is being set.
 
-   #### Numeric Mode
+   #####  Numeric Mode
 
    ```bash
    sudo chmod 2755 test_dir
@@ -1096,7 +1198,7 @@ When the setgid bit is set on a directory, files created within the directory in
 
    So, `2755` means the directory has read, write, and execute permissions for the owner, and read and execute permissions for the group and others, with the Setgid bit set.
 
-   **3. Verify Permissions**
+   **Verify Permissions**
 
    To verify that the permissions have been set correctly, you can use the `ls -ld` command:
 
@@ -1106,42 +1208,28 @@ When the setgid bit is set on a directory, files created within the directory in
 
    This command lists the directory's detailed information, including its permissions, ownership, and other attributes.
 
-   ### Expected Output:
+   ###  Output:
 
-   ```
-   bash
-   Copy code
+   ```bash
    drwxr-sr-x 2 user groupname 4096 Jul 10 12:00 test_dir
    ```
 
-   #### Breaking Down the Output:
+   >- **`drwxr-sr-x`**:
+   >  - `d`: Indicates it is a directory.
+   >  - `rwx`: Read, write, and execute permissions for the owner.
+   >  - `r-s`: Read and execute permissions for the group, with the Setgid bit set (`s` replaces the `x`).
+   >  - `r-x`: Read and execute permissions for others.
+   >- **`2`**: Number of hard links to the directory.
+   >- **`user`**: Owner of the directory.
+   >- **`groupname`**: Group owner of the directory.
+   >- **`4096`**: Size of the directory in bytes.
+   >- **`Jul 10 12:00`**: Last modification date and time.
+   >- **`test_dir`**: Name of the directory.
+   >
 
-   - **`drwxr-sr-x`**:
-     - `d`: Indicates it is a directory.
-     - `rwx`: Read, write, and execute permissions for the owner.
-     - `r-s`: Read and execute permissions for the group, with the Setgid bit set (`s` replaces the `x`).
-     - `r-x`: Read and execute permissions for others.
-   - **`2`**: Number of hard links to the directory.
-   - **`user`**: Owner of the directory.
-   - **`groupname`**: Group owner of the directory.
-   - **`4096`**: Size of the directory in bytes.
-   - **`Jul 10 12:00`**: Last modification date and time.
-   - **`test_dir`**: Name of the directory.
+   
 
-   ### Summary
-
-   1. **Setting the Setgid Bit**:
-
-      - **Symbolic Mode**: `sudo chmod g+s test_dir`
-      - **Numeric Mode**: `sudo chmod 2755 test_dir`
-
-   2. **Verifying Permissions**:
-
-      - Use `ls -ld test_dir` to check the permissions.
-
-      The output should indicate that the Setgid bit is set, with the group execute permission replaced by `s`.
-
-3. **Create a File in the Directory:**
+   **Create a File in the Directory:**
 
    ```bash
    touch test_dir/newfile
@@ -1159,154 +1247,7 @@ When the setgid bit is set on a directory, files created within the directory in
    -rw-r--r-- 1 user groupname 0 Jul 10 12:00 newfile
    ```
 
-### 3. Sticky Bit
-
-When the sticky bit is set on a directory, it ensures that only the owner of a file can delete or rename the file within that directory. This is commonly used for shared directories like `/tmp`.
-
-#### Example and Commands
-
-**Step-by-Step Explanation:**
-
-1. **Create a Directory:**
-
-   ```bash
-   mkdir shared_dir
-   ```
-
-2. **Set the Sticky Bit:**
-
-   - **Symbolic Mode:**
-
-     ```bash
-     chmod +t shared_dir
-     ```
-
-     **`chmod`**: This command is used to change the file mode bits (permissions) of files and directories.
-
-     **`+t`**: This adds the sticky bit to the directory.
-
-     **`shared_dir`**: This is the directory on which the sticky bit is being set.
-
-   - **Numeric Mode:**
-
-     ```bash
-     chmod 1777 shared_dir
-     ```
-
-     - **`chmod`**: As before, this command changes the file mode bits of files and directories.
-
-     - `1777`
-
-       : This is the numeric representation of the permissions you are setting:
-
-       - The first digit (`1`) sets the sticky bit.
-       - The following three digits (777) set the standard read, write, and execute permissions for the owner, group, and others.
-         - `7` corresponds to read (`r`), write (`w`), and execute (`x`) permissions all being set (`rwx`).
-
-     So, `1777` means the directory has read, write, and execute permissions for the owner, group, and others, plus the sticky bit.
-
-3. **Verify Permissions:**
-
-   ```bash
-   ls -ld shared_dir
-   ```
-
-   **`ls`**: This command lists information about files and directories.
-
-   **`-l`**: This option tells `ls` to use a long listing format, which displays detailed information including permissions, number of links, owner, group, size, and timestamp.
-
-   **`-d`**: This option tells `ls` to list directory entries instead of their contents. Without `-d`, `ls` would list the contents of `shared_dir` rather than the directory itself.
-
-   **`shared_dir`**: This is the directory whose permissions you want to verify.
-
-   
-
-   Output:
-
-   ```bash
-   drwxrwxrwt 2 user group 4096 Jul 10 12:00 shared_dir
-   ```
-
-   1. **`d`**
-
-   The first character indicates the type of file:
-
-   - `d`: Directory
-   - `-`: Regular file
-   - `l`: Symbolic link
-   - Other characters (e.g., `b`, `c`, `s`, `p`) can indicate different types of special files.
-
-   In this case, `d` means it is a directory.
-
-   **2. `rwxrwxrwt`**
-
-   The next nine characters represent the permissions for the owner, group, and others. They are divided into three groups of three characters each:
-
-   - **Owner permissions (`rwx`)**:
-     - `r`: Read permission
-     - `w`: Write permission
-     - `x`: Execute permission
-   - **Group permissions (`rwx`)**:
-     - `r`: Read permission
-     - `w`: Write permission
-     - `x`: Execute permission
-   - **Others permissions (`rwt`)**:
-     - `r`: Read permission
-     - `w`: Write permission
-     - `t`: Sticky bit set (indicates that only the owner of the file/directory or the root user can delete or rename files within this directory)
-
-   The `t` in the others' permission section replaces what would normally be the execute (`x`) permission. When the sticky bit is set, it ensures that only the file owner can delete or rename the files within the directory.
-
-    **3. `2`**
-
-   The number immediately following the permissions (`2`) indicates the number of hard links to the directory. Directories typically have at least two hard links: one for the directory itself and one for its `.` (current directory) entry.
-
-   **4. `user`**
-
-   The next field (`user`) indicates the owner of the directory. This is the username of the person who owns the directory.
-
-   **5. `group`**
-
-   The following field (`group`) indicates the group associated with the directory. This is the group name.
-
-   **6. `4096`**
-
-   This number (`4096`) represents the size of the directory in bytes. For directories, this value is typically a standard size, often 4096 bytes, depending on the filesystem.
-
-   **7. `Jul 10 12:00`**
-
-   This timestamp indicates the last modification time of the directory. It shows the month (`Jul`), the day of the month (`10`), and the time (`12:00`).
-
-   **8. `shared_dir`**
-
-   The final part is the name of the directory (`shared_dir`).
-
-   ### 
-
-
-
-
-
-### Example Usage
-
-1. **Create a Script and Change Permissions**
-
-   ```bash
-   echo -e "#!/bin/bash\n echo Hello, World!" > hello.sh
-   chmod +x hello.sh
-   ./hello.sh
-   ```
-
-2. **Create a Directory with Setgid and Sticky Bit**
-
-   ```bash
-   mkdir shared
-   chmod 2775 shared      # Setgid
-   chmod 1777 shared      # Sticky bit
-   ls -ld shared
-   ```
-
-
+### 
 
 ### Read Permissions
 
@@ -1494,79 +1435,75 @@ Commands that need execute permissions typically require the ability to run a fi
 
 
 
-3. ### Summary
 
-   Putting it all together, this output indicates that `shared_dir` is a directory with read, write, and execute permissions for the owner and group, and read, write, and execute permissions for others, with the sticky bit set. The directory has 2 hard links, is owned by the user `user` and the group `group`, has a size of 4096 bytes, and was last modified on July 10 at 12:00.
-   
-   
 
-   ### **Create Files by Different Users (simulated)**
+### **Create Files by Different Users (simulated)**
 
-   #### Step 1.1: Create a File as the Current User
+#### Step 1.1: Create a File as the Current User
 
-   ```bash
-   touch shared_dir/file1
-   ```
+```bash
+touch shared_dir/file1
+```
 
-   - **`touch shared_dir/file1`**: The `touch` command is used to create an empty file named `file1` inside the `shared_dir` directory. This file is created by the current user, who owns this session in the terminal.
+- **`touch shared_dir/file1`**: The `touch` command is used to create an empty file named `file1` inside the `shared_dir` directory. This file is created by the current user, who owns this session in the terminal.
 
-   #### Step 1.2: Create a File as Another User
+#### Step 1.2: Create a File as Another User
 
-   ```bash
-   sudo -u anotheruser touch shared_dir/file2
-   ```
+```bash
+sudo -u anotheruser touch shared_dir/file2
+```
 
-   - **`sudo`**: This command allows you to run programs with the security privileges of another user (by default, as the superuser).
-   - **`-u anotheruser`**: This option tells `sudo` to run the command as `anotheruser` instead of the default superuser.
-   - **`touch shared_dir/file2`**: This command, run as `anotheruser`, creates an empty file named `file2` inside the `shared_dir` directory.
+- **`sudo`**: This command allows you to run programs with the security privileges of another user (by default, as the superuser).
+- **`-u anotheruser`**: This option tells `sudo` to run the command as `anotheruser` instead of the default superuser.
+- **`touch shared_dir/file2`**: This command, run as `anotheruser`, creates an empty file named `file2` inside the `shared_dir` directory.
 
-   In this setup:
-   
-   - `file1` is owned by the current user.
-   - `file2` is owned by `anotheruser`.
+In this setup:
 
-   ### 2. **Verify that Only File Owners Can Delete Their Files**
+- `file1` is owned by the current user.
+- `file2` is owned by `anotheruser`.
 
-   #### Step 2.1: Attempt to Delete `file2` as the Current User
+### 2. **Verify that Only File Owners Can Delete Their Files**
 
-   ```bash
-   rm shared_dir/file2  # Permission denied if not owner
-   ```
-   
-   - **`rm shared_dir/file2`**: The `rm` command is used to remove (delete) the file named `file2` inside the `shared_dir` directory.
-   - If you try to delete `file2` as the current user (who did not create `file2`), you should get a "Permission denied" error. This is because the sticky bit on `shared_dir` prevents users from deleting files they do not own.
-   
-   #### Step 2.2: Delete `file2` as `anotheruser`
-   
-   ```bash
-   sudo -u anotheruser rm shared_dir/file2  # Successful if owner
-   ```
-   
-   - **`sudo -u anotheruser rm shared_dir/file2`**: This command uses `sudo` to run the `rm` command as `anotheruser`, who is the owner of `file2`.
-   - Since `anotheruser` owns `file2`, this command will successfully delete `file2`.
-   
-   ### Recap
-   
-   1. **Creating Files**:
-      - You created `file1` as the current user.
-      - You created `file2` as `anotheruser`.
-   2. **Verifying Deletion Permissions**:
-      - Attempting to delete `file2` as the current user results in a **"Permission denied"** error because the sticky bit prevents non-owners from deleting files in the directory.
-      - Deleting `file2` as `anotheruser` is successful because `anotheruser` is the owner of the file.
+#### Step 2.1: Attempt to Delete `file2` as the Current User
 
-   --------------------------------------------------------------
+```bash
+rm shared_dir/file2  # Permission denied if not owner
+```
 
-   #### Summary
+- **`rm shared_dir/file2`**: The `rm` command is used to remove (delete) the file named `file2` inside the `shared_dir` directory.
+- If you try to delete `file2` as the current user (who did not create `file2`), you should get a "Permission denied" error. This is because the sticky bit on `shared_dir` prevents users from deleting files they do not own.
 
-   - **Setuid:**
-     - Symbolic: `chmod u+s filename`
-     - Numeric: `chmod 4755 filename`
-   - **Setgid:**
-     - Symbolic: `chmod g+s filename` or `chmod g+s directory`
-     - Numeric: `chmod 2755 filename` or `chmod 2755 directory`
-   - **Sticky Bit:**
-     - Symbolic: `chmod +t directory`
-     - Numeric: `chmod 1777 directory`
+#### Step 2.2: Delete `file2` as `anotheruser`
+
+```bash
+sudo -u anotheruser rm shared_dir/file2  # Successful if owner
+```
+
+- **`sudo -u anotheruser rm shared_dir/file2`**: This command uses `sudo` to run the `rm` command as `anotheruser`, who is the owner of `file2`.
+- Since `anotheruser` owns `file2`, this command will successfully delete `file2`.
+
+### Recap
+
+1. **Creating Files**:
+   - You created `file1` as the current user.
+   - You created `file2` as `anotheruser`.
+2. **Verifying Deletion Permissions**:
+   - Attempting to delete `file2` as the current user results in a **"Permission denied"** error because the sticky bit prevents non-owners from deleting files in the directory.
+   - Deleting `file2` as `anotheruser` is successful because `anotheruser` is the owner of the file.
+
+--------------------------------------------------------------
+
+#### Summary
+
+- **Setuid:**
+  - Symbolic: `chmod u+s filename`
+  - Numeric: `chmod 4755 filename`
+- **Setgid:**
+  - Symbolic: `chmod g+s filename` or `chmod g+s directory`
+  - Numeric: `chmod 2755 filename` or `chmod 2755 directory`
+- **Sticky Bit:**
+  - Symbolic: `chmod +t directory`
+  - Numeric: `chmod 1777 directory`
 
 ---------------------------------------------------
 
