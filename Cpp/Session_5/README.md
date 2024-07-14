@@ -1,11 +1,13 @@
 # Modern C++
 
-- **default function arguments
-- const and constexpr
+- **default function argumentsn**
+- **const and constexpr**
+- **Type Information**
+- **Initializer List**
 
+- **rightValue and leftValue**
 
-
-
+----
 
 ## 1. Type Information
 

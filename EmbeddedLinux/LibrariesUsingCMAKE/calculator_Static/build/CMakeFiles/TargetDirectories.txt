@@ -1,0 +1,2 @@
+/home/anas/EmbeddedLinux/Tasks/Embedded_Linux/EmbeddedLinuxTasks/LibrariesUsingCMAKE/calculator_Static/build/CMakeFiles/edit_cache.dir
+/home/anas/EmbeddedLinux/Tasks/Embedded_Linux/EmbeddedLinuxTasks/LibrariesUsingCMAKE/calculator_Static/build/CMakeFiles/rebuild_cache.dir
