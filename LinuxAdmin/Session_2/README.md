@@ -104,4 +104,5 @@ To create partitions, you can choose between primary and extended partitions. Th
 
 If the MBR gets corrupted, it can cause significant issues since there's no built-in backup, and you'll need to find a way to recover or replace it.
 
-### 
+## ########################### Not Finished Yet ########################################
+

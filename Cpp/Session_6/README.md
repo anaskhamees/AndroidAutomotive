@@ -1,17 +1,13 @@
 ## Table of Contents
 
-- Strings
-- Strings view
-- Array
-- Vector
+- **Strings**
+- **Strings view**
+- **Array**
+- **Vector**
 
 ------------------------
 
-
-
 ## 1. Strings in Modern c++
-
-
 
 In C++, strings are typically managed using the `std::string` class from the Standard Library, which provides a more convenient and safer alternative to C-style strings (`char` arrays).
 
@@ -1072,7 +1068,43 @@ Here is an overview of the member functions listed in your image, with examples 
 
 ### 1. `vector::assign`
 
-`assign` assigns new contents to the vector, replacing its current contents.
+**1.1. Initializing Vector by Pushing values One by One**
+
+```c++
+vector_name.push_back(value_to_be_pushed_at_end_of_vector)
+```
+
+Vector can be initialized by pushing value one by one. This method involves creating an empty vector and adding elements to it one by one using the **push_back()** function.
+
+```c++
+#include <iostream>
+#include <vector>
+
+int main()
+{
+    // Create an empty vector
+   std::vector<int> vector_1;
+	std::cout<<"\nThe Vector Elements: \n\n";
+    vector_1.push_back(1);
+    vector_1.push_back(2);
+    vector_1.push_back(3);
+
+    for (int x : vector_1)
+        std::cout << x << " ";
+
+    return 0;
+}
+```
+
+![image-20240715122718665](README.assets/image-20240715122718665.png)
+
+**1.2. Initializing Vector by Specifying Size and Initializing All Elements by the same value **
+
+```c++
+vector<data_type> vector_name(vector_size, default_value_for_all_elements);
+```
+
+
 
 ```c++
 #include <iostream>
@@ -1088,6 +1120,198 @@ int main() {
 }
 ```
 
+![image-20240715123640436](README.assets/image-20240715123640436.png)
+
+>```c++
+>#include <iostream>
+>#include <vector>
+>```
+>
+>- **`#include <iostream>`**: Includes the standard input-output stream library to use `std::cout` for printing to the console.
+>- **`#include <vector>`**: Includes the vector library to use the `std::vector` container.
+>
+>#### Main Function
+>
+>```c++
+>int main() {
+>    std::vector<int> vec;
+>    vec.assign(5, 10);  // Assigns 5 elements with the value 10
+>    for (const auto& elem : vec) {
+>        std::cout << elem << ' ';
+>    }
+>    // Output: 10 10 10 10 10
+>}
+>```
+>
+>#### Vector Declaration
+>
+>```c++
+>std::vector<int> vec;
+>```
+>
+>- **Vector Initialization**: Declares a vector named `vec` of type `int`. Initially, this vector is empty.
+>
+>#### Vector Assignment
+>
+>```c++
+>vec.assign(5, 10);  // Assigns 5 elements with the value 10
+>```
+>
+>- The `assign` method is used to assign new values to the vector.
+>  - **First Parameter (5)**: Specifies the number of elements to assign.
+>  - **Second Parameter (10)**: Specifies the value to assign to each element.
+>- **Result**: The vector `vec` now contains 5 elements, each with the value 10. So, `vec` becomes `[10, 10, 10, 10, 10]`.
+>
+>#### Loop and Printing
+>
+>```c++
+>for (const auto& elem : vec) {
+>    std::cout << elem << ' ';
+>}
+>```
+>
+>- **Range-Based For Loop **: Iterates over each element in the vector `vec`
+>  - **`const auto& elem`**: Declares a constant reference to each element in the vector, allowing the loop to access each element without copying it.
+>- **Printing Each Element**: Inside the loop, `std::cout << elem << ' ';` prints each element followed by a space.
+>- **Output**: The elements of the vector are printed sequentially. For this vector, the output is `10 10 10 10 10`.
+>
+>The code demonstrates the following:
+>
+>1. **Vector Initialization**: An empty vector `vec` of type `int` is created.
+>2. **Vector Assignment**: The `assign` method is used to assign 5 elements, each with the value 10, to the vector.
+>3. **Range-Based For Loop**: Iterates over the elements of the vector and prints each one, resulting in the output `10 10 10 10 10`.
+>
+>
+
+**1.3.   Initialize the vector like the array **
+
+```c++
+vector<data_type> vector_name={item0,item1,item2.....}
+```
+
+```c++
+#include <iostream>
+#include <vector>
+int main()
+{
+    std::vector<int> vect={ 1, 2, 3 ,4 };
+    /* OR use this , the same output and effect.
+		std::vector<int> vect{ 1, 2, 3 };
+	*/
+    for (int x : vect)
+    {
+     	std::cout << x << " ";   
+    }
+    return 0;
+}
+```
+
+![image-20240715124551425](README.assets/image-20240715124551425.png)
+
+**1.4. Initialize vector by Array**
+
+```c++
+vector<data_type> vector_name(array, array + size);
+```
+
+```c++
+#include <iostream>
+#include <vector>
+
+int main()
+{
+    int array[] = { 1, 2, 3, 4 };
+    int size = sizeof(array) / sizeof(array[0]);
+
+    std::vector<int> vector_1(array, array + size);
+    
+    std::cout<<"\n The Vector Elements: ";
+    for (int i : vector_1)
+        std::cout << i << " ";
+
+    return 0;
+}
+
+```
+
+![image-20240715125008075](README.assets/image-20240715125008075.png)
+
+**1.5.  Initialize Vector by another Vector**
+
+```c++
+vector<data_type> vector_name(other_vector.begin(), other_vector.end());
+```
+
+```c++
+#include <iostream>
+#include <vector>
+int main()
+{
+	std::vector<int> vector_1{1,2,3,4};
+	std::vector<int> vector_2(vector_1.begin(),vector_1.end());
+	std::cout<<" \nThe Elements of Vector: ";
+	for(int i:vector_2){
+		std::cout<<i<<" ";
+	}
+	return 0;
+}
+```
+
+![image-20240715125540209](README.assets/image-20240715125540209.png)
+
+**1.6.  Fill the Vector Elements by the same value  **
+
+```c++
+fill(vector_name.begin(), vector_name.end(), value);
+```
+
+```c++
+#include <iostream>
+#include <vector>
+
+int main()
+{
+
+    std::vector<int> vector_1(10);
+    fill(vector_1.begin(), vector_1.end(), 1);
+	std::cout<<" \nThe Elements of Vector: ";
+    for (int i: vector_1)
+        std::cout << i<< " ";
+
+    return 0;
+}
+```
+
+![image-20240715130134577](README.assets/image-20240715130134577.png)
+
+
+
+**1.7. Initialize the Vector by consecutive numbers using  `std::iota` **  
+
+```c++
+std::iota(begin_iterator, end_iterator, start_value);
+```
+
+```c++
+#include <iostream>
+#include <numeric>
+#include <vector>
+
+int main()
+{
+    std::vector<int> vector_1(4);
+    std::iota(vector_1.begin(),vector_1.end(),1)
+    for(int i:vector_1)
+    {
+        std::cout<<i<<" ";
+    }
+}
+```
+
+>
+
+![image-20240715130836708](README.assets/image-20240715130836708.png)
+
 ### 2. `vector::at`
 
 `at` provides bounds-checked access to elements.
@@ -1101,9 +1325,11 @@ int main() {
     std::cout << "Element at index 2: " << vec.at(2) << std::endl;  // Output: 3
 
     // Uncommenting the next line will throw an out-of-range exception
-    // std::cout << vec.at(5) << std::endl;
+    // std::cout << vec.at(5) << std::endl;  //Exception
 }
 ```
+
+![image-20240715144830155](README.assets/image-20240715144830155.png)
 
 ### 3. `vector::back`
 
@@ -1118,6 +1344,8 @@ int main() {
     std::cout << "Last element: " << vec.back() << std::endl;  // Output: 5
 }
 ```
+
+![image-20240715145337560](README.assets/image-20240715145337560.png)
 
 ### 4. `vector::begin` and `vector::end`
 
@@ -1150,6 +1378,8 @@ int main() {
     std::cout << "Capacity: " << vec.capacity() << std::endl;  // Output: 10
 }
 ```
+
+![image-20240715145548172](README.assets/image-20240715145548172.png)
 
 ### 6. `vector::cbegin` and `vector::cend`
 
@@ -1529,3 +1759,553 @@ int main() {
     std::cout << std::endl;  // Output: 1 2 3
 }
 ```
+
+
+
+## Iterator in C++
+
+In C++, an iterator is an object that allows you to traverse through the elements of a container, such as a vector. Iterators are similar to pointers in that they can be incremented and dereferenced to access the elements of the container they point to. However, iterators are more flexible and safer to use than raw pointers because they encapsulate the underlying mechanism of accessing elements in a container.
+
+#### General Syntax
+
+```c++
+container_type::iterator_type iterator_name = container.begin();
+```
+
+Let's break down each part of the general syntax:
+
+1. **`container_type`**: The type of the container (e.g., `std::vector<int>`).
+2. **`iterator_type`**: The specific type of iterator (`iterator`, `const_iterator`, `reverse_iterator`, `const_reverse_iterator`).
+3. **`iterator_name`**: The name you give to the iterator variable (e.g., `it`).
+4. **`container.begin()`**: The function that returns the starting point for the iterator.
+
+Let's look at each specific example you mentioned and explain it within this general syntax:
+
+**For example :**
+
+```c++
+std::vector<int>::iterator it = vec.begin();
+```
+
+- **`std::vector<int>`**: The type of the container.
+- **`iterator`**: The type of the iterator that can read/write elements.
+- **`it`**: The name of the iterator variable.
+- **`vec.begin()`**: Returns an iterator pointing to the first element of `vec`.
+
+### Iterator Types in the Context of Vectors
+
+Here are the types of iterators commonly used with `std::vector` in C++:
+
+1. **Random Access Iterator**: Iterators provided by `std::vector` are random access iterators. This means they support a full range of operations like pointer arithmetic, including addition and subtraction, as well as comparison operations.
+
+2. **Vector Iterators**:
+
+   - **`begin()`**: Returns an iterator pointing to the first element of the vector.
+
+   - **`end()`**: Returns an iterator pointing to **one past** the last element of the vector.
+
+     >- **`end()`**: Returns an iterator that is **one past** the last element of the vector. This position is not valid for dereferencing; it’s used primarily to mark the end of the sequence.
+     >
+     >- For example, if you have a vector of 5 elements, `end()` points to a position that is after the last (6th) position, which is not accessible for reading or writing.
+
+   - **`rbegin()`**: Returns a reverse iterator pointing to the last element of the vector (reverse traversal).
+
+   - **`rend()`**: Returns a reverse iterator pointing to one before the first element of the vector (reverse traversal).
+
+     >**`rend()`** points to the position just before the first element of the vector when traversing in reverse. It is **not dereferenceable** and serves as a boundary marker for reverse iteration.
+
+   - **`cbegin()`**: Returns a constant iterator pointing to the first element of the vector.
+
+   - **`cend()`**: Returns a constant iterator pointing to **one past** the last element of the vector.
+
+   - **`crbegin()`**: Returns a constant reverse iterator pointing to the last element of the vector.
+
+   - **`crend()`**: Returns a constant reverse iterator pointing to **one before** the first element of the vector.
+
+     ### Types of Iterators and Their Differences
+
+     1. **`begin()` vs. `cbegin()`**
+        - **`begin()`**: Returns a non-const iterator that allows you to modify the elements of the vector.
+        - **`cbegin()`**: Returns a constant iterator that **does not allow you to modify** the elements of the vector. It is read-only.
+     2. **`end()` vs. `cend()`**
+        - **`end()`**: Returns a non-const iterator that points to one past the last element of the vector.
+        - **`cend()`**: Returns a constant iterator that also points to one past the last element, but does not allow modification of the vector’s elements.
+     3. **`rbegin()` vs. `crbegin()`**
+        - **`rbegin()`**: Returns a reverse iterator that allows you to traverse the vector in reverse and modify the elements.
+        - **`crbegin()`**: Returns a constant reverse iterator that allows reverse traversal but does not allow modification of the vector’s elements.
+     4. **`rend()` vs. `crend()`**
+        - **`rend()`**: Returns a reverse iterator that points to one before the first element of the vector, allowing you to traverse backwards and modify elements.
+        - **`crend()`**: Returns a constant reverse iterator that points to one before the first element in reverse traversal, but you cannot modify the elements.
+
+     
+
+     - **Non-const Iterators (`begin()`, `end()`, `rbegin()`, `rend()`)**: These iterators allow you to both read from and write to the elements of the vector.
+     - **Constant Iterators (`cbegin()`, `cend()`, `crbegin()`, `crend()`)**: These iterators only allow you to read from the elements; you cannot modify them.
+
+     Here’s a more detailed look at how constant iterators affect your code:
+
+     ```c++
+     #include <vector>
+     #include <iostream>
+     
+     int main() {
+         std::vector<int> v = {1, 2, 3, 4, 5};
+     
+         // Non-const iterators
+         for (auto it = v.begin(); it != v.end(); ++it) {
+             *it = 10;  // Modifying elements
+         }
+     
+         // Const iterators
+         for (auto it = v.cbegin(); it != v.cend(); ++it) {
+             // *it = 10;  // Error: Cannot modify elements
+             std::cout << *it << " ";  // Reading elements
+         }
+         std::cout << std::endl;
+     
+         // Non-const reverse iterators
+         for (auto rit = v.rbegin(); rit != v.rend(); ++rit) {
+             *rit = 20;  // Modifying elements
+         }
+     
+         // Const reverse iterators
+         for (auto rit = v.crbegin(); rit != v.crend(); ++rit) {
+             // *rit = 20;  // Error: Cannot modify elements
+             std::cout << *rit << " ";  // Reading elements
+         }
+         std::cout << std::endl;
+     
+         return 0;
+     }
+     ```
+
+     
+
+     | Iterator    | Type      | Can Modify Elements?      |
+     | ----------- | --------- | ------------------------- |
+     | `begin()`   | Non-const | Yes                       |
+     | `end()`     | Non-const | N/A (points past end)     |
+     | `rbegin()`  | Non-const | Yes                       |
+     | `rend()`    | Non-const | N/A (points before begin) |
+     | `cbegin()`  | Constant  | No                        |
+     | `cend()`    | Constant  | N/A (points past end)     |
+     | `crbegin()` | Constant  | No                        |
+     | `crend()`   | Constant  | N/A (points before begin) |
+
+     ### Example of Usage
+
+     ```c++
+     #include <vector>
+     #include <iostream>
+     
+     int main() {
+         std::vector<int> v = {1, 2, 3, 4, 5};
+     
+         // Using non-const iterator
+         for (auto it = v.begin(); it != v.end(); ++it) {
+             *it = 10;  // Allowed: modifying elements
+         }
+     
+         // Using constant iterator
+         for (auto it = v.cbegin(); it != v.cend(); ++it) {
+             std::cout << *it << " ";  // Allowed: reading elements
+             // *it = 20;  // Error: cannot modify elements
+         }
+         std::cout << std::endl;
+     
+         // Using non-const reverse iterator
+         for (auto rit = v.rbegin(); rit != v.rend(); ++rit) {
+             *rit = 20;  // Allowed: modifying elements
+         }
+     
+         // Using constant reverse iterator
+         for (auto rit = v.crbegin(); rit != v.crend(); ++rit) {
+             std::cout << *rit << " ";  // Allowed: reading elements
+             // *rit = 30;  // Error: cannot modify elements
+         }
+         std::cout << std::endl;
+     
+         return 0;
+     }
+     ```
+
+### Basic Iterator Operations
+
+- **Dereferenceable**: You can use the `*` operator to access the element pointed to by the iterator.
+- **Incrementable**: You can use the `++` operator to move the iterator to the next element.
+- **Decrementable**: You can use the `--` operator to move the iterator to the previous element.
+- **Add/Subtract**: You can add or subtract an integer to/from the iterator (e.g., `it + 5` to move 5 positions forward).
+- **Difference**: You can find the distance between two iterators (e.g., `it2 - it1` to find the number of elements between `it1` and `it2`).
+- **Comparison**: You can use relational operators (`<`, `>`, `<=`, `>=`, `==`, `!=`) to compare iterators.
+
+Here's an extended example demonstrating random access operations on a `std::vector` using iterators:
+
+```c++
+#include <iostream>
+#include <vector>
+
+int main() {
+    std::vector<int> vec = {1, 2, 3, 4, 5};
+
+    // Using iterator to access elements
+    std::vector<int>::iterator it = vec.begin();
+    std::cout << "First element: " << *it << std::endl;
+
+    // Increment iterator
+    ++it;
+    std::cout << "Second element: " << *it << std::endl;
+
+    // Decrement iterator
+    --it;
+    std::cout << "Back to first element: " << *it << std::endl;
+
+    // Random access
+    it += 3;
+    std::cout << "Fourth element: " << *it << std::endl;
+
+    it -= 2;
+    std::cout << "Second element again: " << *it << std::endl;
+
+    // Difference between iterators
+    std::vector<int>::iterator it2 = vec.end();
+    std::cout << "Distance from begin to end: " << it2 - vec.begin() << std::endl;
+
+    // Comparison of iterators
+    if (it < it2) {
+        std::cout << "Iterator it is before iterator it2" << std::endl;
+    }
+
+    return 0;
+}
+```
+
+### Explanation of the Code:
+
+1. **Dereferencing**:
+
+   ```c++
+   std::vector<int>::iterator it = vec.begin();
+   std::cout << "First element: " << *it << std::endl;
+   ```
+
+   - The iterator `it` is initialized to point to the first element of the vector.
+   - `*it` accesses the value of the first element.
+
+2. **Increment**:
+
+   ```c++
+   ++it;
+   std::cout << "Second element: " << *it << std::endl;
+   ```
+
+   - The iterator `it` is incremented to point to the next element.
+   - `*it` now accesses the value of the second element.
+
+3. **Decrement**:
+
+   ```c++
+   --it;
+   std::cout << "Back to first element: " << *it << std::endl;
+   ```
+
+   - The iterator `it` is decremented to point back to the first element.
+   - `*it` accesses the value of the first element again.
+
+4. **Random Access**:
+
+   ```c++
+   it += 3;
+   std::cout << "Fourth element: " << *it << std::endl;
+   ```
+
+   - The iterator `it` is moved forward by 3 positions.
+   - `*it` accesses the value of the fourth element.
+
+   ```c++
+   it -= 2;
+   std::cout << "Second element again: " << *it << std::endl;
+   ```
+
+   - The iterator `it` is moved backward by 2 positions.
+   - `*it` accesses the value of the second element.
+
+5. **Difference**:
+
+   ```c++
+   std::vector<int>::iterator it2 = vec.end();
+   std::cout << "Distance from begin to end: " << it2 - vec.begin() << std::endl;
+   ```
+
+   - The iterator `it2` is initialized to point one past the last element of the vector.
+   - `it2 - vec.begin()` calculates the number of elements between the beginning and the end of the vector.
+
+6. **Comparison**:
+
+   ```c++
+   if (it < it2) {
+       std::cout << "Iterator it is before iterator it2" << std::endl;
+   }
+   ```
+
+   - The comparison `it < it2` checks if `it` is before `it2`.
+
+
+
+## Example 
+
+```c++
+#include <iostream>
+#include <vector>
+
+/* Function prints the vector using normal iterator */
+void printUsingIterator(std::vector<int>& v)
+{
+	std::cout << "########################################################\n";
+    std::cout << "#         Print Vector using Normal Iterator           #\n";
+	std::cout << "########################################################\n";
+    int i = 0;
+    for (std::vector<int>::iterator it = v.begin(); it != v.end(); ++it)  // Use ++it instead of it++
+    {
+        /* print the address of the element and the value */
+        std::cout << "Address of element " << i << " : " << static_cast<void*>(&(*it))  // Print address
+                  << " -- Element " << i << " : " << *it << " #\n";  // Print value
+        i++;
+    }
+}
+
+/* Function prints the vector using reverse begin rbegin()*/
+void printUsingReverseIterator(std::vector<int>&v)
+{
+	int i=0;
+	std::cout << "########################################################\n";
+    std::cout << "#         Print Vector using Reverse Iterator          #\n";
+	std::cout << "########################################################\n";
+    for(auto Reverse_it=v.rbegin();Reverse_it !=v.rend();Reverse_it++)
+    {
+    	std::cout<<"Address of element " << i << " : " <<static_cast<void*>(&(*Reverse_it))<< " -- Element " << i << " : " << *Reverse_it<<" #\n";
+    	i++;
+    }
+}
+
+/* Function prints the vector using constant begin cbegin()*/
+void printUsingConstIterator(std::vector<int>&v)
+{         
+	int i=0;
+	std::cout << "########################################################\n";
+    std::cout << "#        Print Vector using Constant Iterator          #\n";
+	std::cout << "########################################################\n";
+    for(auto Reverse_it=v.cbegin();Reverse_it !=v.cend();Reverse_it++)
+    {
+    	std::cout<<"Address of element " << i << " : " <<static_cast<const int*>(&(*Reverse_it))<< " -- Element " << i << " : " << *Reverse_it<<" #\n";
+    	i++;
+    }
+}
+
+/* Function prints the vector using constant Reverse Iterator*/
+void printUsingConstReverseIterator(std::vector<int>&v)
+{         
+	int i=0;
+	std::cout << "########################################################\n";
+    std::cout << "#     Print Vector using Constant Reverse Iterator     #\n";
+	std::cout << "########################################################\n";
+    for(auto ConstReverse_it=v.crbegin();ConstReverse_it !=v.crend();ConstReverse_it++)
+    {
+    	std::cout<<"Address of element " << i << " : " <<static_cast<const int*>(&(*ConstReverse_it))<< " -- Element " << i << " : " << *ConstReverse_it<<" #\n";
+    	i++;
+    }
+}
+
+int main()
+{
+    std::vector<int> vec = {1, 2, 3, 4, 5};
+   
+    printUsingIterator(vec);
+    printUsingReverseIterator(vec);
+    printUsingConstIterator(vec);
+	printUsingConstReverseIterator(vec);
+    return 0;
+}
+
+```
+
+![image-20240715115154610](README.assets/image-20240715115154610.png)
+
+### Detailed Explanation:
+
+#### Includes and Namespace
+
+```c++
+#include <iostream>
+#include <vector>
+```
+
+- **`#include <iostream>`**: Includes the standard input-output stream library for using `std::cout`.
+- **`#include <vector>`**: Includes the vector library for using the `std::vector` container.
+
+#### Function `printUsingIterator`
+
+```c++
+void printUsingIterator(std::vector<int>& v)
+{
+	std::cout << "########################################################\n";
+    std::cout << "#         Print Vector using Normal Iterator           #\n";
+	std::cout << "########################################################\n";
+    int i = 0;
+    for (std::vector<int>::iterator it = v.begin(); it != v.end(); ++it)
+    {
+        std::cout << "Address of element " << i << " : " << static_cast<void*>(&(*it))
+                  << " -- Element " << i << " : " << *it << " #\n";
+        i++;
+    }
+}
+```
+
+- **Function Declaration**: Declares a function named `printUsingIterator` which takes a reference to a vector of integers.
+
+- **Printing Header**: Prints a decorative header to the console.
+
+- **Iterator Initialization**: Initializes an iterator `it` to the beginning of the vector `v`.
+
+- **Loop**: Loops from the beginning of the vector to the end using the iterator `it`.
+
+- Print Statement
+
+  : Prints the address and the value of each element:
+
+  - **Address**: `static_cast<void*>(&(*it))` prints the address of the current element.
+  - **Value**: `*it` prints the value of the current element.
+
+- **Increment**: Increments the index `i` to track the element's position.
+
+#### Function `printUsingReverseIterator`
+
+```c++
+void printUsingReverseIterator(std::vector<int>&v)
+{
+	int i=0;
+	std::cout << "########################################################\n";
+    std::cout << "#         Print Vector using Reverse Iterator          #\n";
+	std::cout << "########################################################\n";
+    for(auto Reverse_it=v.rbegin(); Reverse_it != v.rend(); ++Reverse_it)
+    {
+    	std::cout << "Address of element " << i << " : " << static_cast<void*>(&(*Reverse_it))
+                  << " -- Element " << i << " : " << *Reverse_it << " #\n";
+    	i++;
+    }
+}
+```
+
+- **Function Declaration**: Declares a function named `printUsingReverseIterator` which takes a reference to a vector of integers.
+
+- **Printing Header**: Prints a decorative header to the console.
+
+- **Reverse Iterator Initialization**: Initializes a reverse iterator `Reverse_it` to the end of the vector `v`.
+
+- **Loop**: Loops from the end of the vector to the beginning using the reverse iterator.
+
+- Print Statement
+
+  : Prints the address and value of each element using the reverse iterator:
+
+  - **Address**: `static_cast<void*>(&(*Reverse_it))` prints the address of the current element.
+  - **Value**: `*Reverse_it` prints the value of the current element.
+
+- **Increment**: Increments the index `i` to track the element's position.
+
+#### Function `printUsingConstIterator`
+
+```c++
+void printUsingConstIterator(std::vector<int>&v)
+{         
+	int i = 0;
+	std::cout << "########################################################\n";
+    std::cout << "#        Print Vector using Constant Iterator          #\n";
+	std::cout << "########################################################\n";
+    for(auto Const_it = v.cbegin(); Const_it != v.cend(); ++Const_it)
+    {
+    	std::cout << "Address of element " << i << " : " << static_cast<const void*>(&(*Const_it))
+                  << " -- Element " << i << " : " << *Const_it << " #\n";
+    	i++;
+    }
+}
+```
+
+- **Function Declaration**: Declares a function named `printUsingConstIterator` which takes a reference to a vector of integers.
+
+- **Printing Header**: Prints a decorative header to the console.
+
+- **Constant Iterator Initialization**: Initializes a constant iterator `Const_it` to the beginning of the vector `v`.
+
+- **Loop**: Loops from the beginning of the vector to the end using the constant iterator.
+
+- Print Statement
+
+  : Prints the address and value of each element using the constant iterator:
+
+  - **Address**: `static_cast<const void*>(&(*Const_it))` prints the address of the current element.
+  - **Value**: `*Const_it` prints the value of the current element.
+
+- **Increment**: Increments the index `i` to track the element's position.
+
+#### Function `printUsingConstReverseIterator`
+
+```c++
+void printUsingConstReverseIterator(std::vector<int>&v)
+{         
+	int i = 0;
+	std::cout << "########################################################\n";
+    std::cout << "#     Print Vector using Constant Reverse Iterator     #\n";
+	std::cout << "########################################################\n";
+    for(auto ConstReverse_it = v.crbegin(); ConstReverse_it != v.crend(); ++ConstReverse_it)
+    {
+    	std::cout << "Address of element " << i << " : " << static_cast<const void*>(&(*ConstReverse_it))
+                  << " -- Element " << i << " : " << *ConstReverse_it << " #\n";
+    	i++;
+    }
+}
+```
+
+- **Function Declaration**: Declares a function named `printUsingConstReverseIterator` which takes a reference to a vector of integers.
+
+- **Printing Header**: Prints a decorative header to the console.
+
+- **Constant Reverse Iterator Initialization**: Initializes a constant reverse iterator `ConstReverse_it` to the end of the vector `v`.
+
+- **Loop**: Loops from the end of the vector to the beginning using the constant reverse iterator.
+
+- Print Statement
+
+  : Prints the address and value of each element using the constant reverse iterator:
+
+  - **Address**: `static_cast<const void*>(&(*ConstReverse_it))` prints the address of the current element.
+  - **Value**: `*ConstReverse_it` prints the value of the current element.
+
+- **Increment**: Increments the index `i` to track the element's position.
+
+#### Main Function
+
+```c++
+int main()
+{
+    std::vector<int> vec = {1, 2, 3, 4, 5};
+   
+    printUsingIterator(vec);
+    printUsingReverseIterator(vec);
+    printUsingConstIterator(vec);
+    printUsingConstReverseIterator(vec);
+    return 0;
+}
+```
+
+- **Vector Initialization**: Initializes a vector `vec` with the elements `{1, 2, 3, 4, 5}`.
+
+- Function Calls
+
+  : Calls the four functions defined above to print the vector elements using different iterators.
+
+  - `printUsingIterator(vec)`: Prints using normal iterators.
+  - `printUsingReverseIterator(vec)`: Prints using reverse iterators.
+  - `printUsingConstIterator(vec)`: Prints using constant iterators.
+  - `printUsingConstReverseIterator(vec)`: Prints using constant reverse iterators.
+
+- **Return**: Returns 0 to indicate successful completion of the program.
