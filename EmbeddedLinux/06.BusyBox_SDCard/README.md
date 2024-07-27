@@ -295,7 +295,7 @@ mkdir rootfs_Static
 
 ![image-20240129015736887](README.assets/image-20240129015736887.png)
 
-- Copy the Dynamic Kernel modules from the last task ([Here](https://github.com/anaskhamees/Embedded_Linux/tree/main/EmbeddedLinuxTasks/Kernel#331-compile-dynamic-kernel-modules)) to `rootfs_Static` .
+- Copy the Dynamic Kernel modules from the last task ([Here](https://github.com/anaskhamees/Embedded_Linux/blob/main/EmbeddedLinuxTasks/05.Kernel/README.md#331-compile-dynamic-kernel-modules)) to `rootfs_Static` .
 
   >Note:  **Static** in `rootfs_Static` refer to Compiling the BusyBox (Command source files) Statically. It does not any relation with **Dynamic** in `dynamic kernel module` . 
 
