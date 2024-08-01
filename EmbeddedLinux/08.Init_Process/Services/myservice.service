@@ -1,0 +1,8 @@
+[Unit]
+Want=mynewtwork.network
+[service]
+Type=simple
+ExecStart=ping -c 4 google.com
+Restart=always
+RestartSec=3
+WorkDir=/usr/bin

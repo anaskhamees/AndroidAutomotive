@@ -6,19 +6,55 @@ class stack
         int size;
         int* stk;
         int TOS;
+        static int stk_Num;
     public:
         stack()
         {
             size = 10;
             stk = new int[size];
             TOS = -1;
+            stk_Num++;
         }
         stack(int size)
         {
             this->size = size;
             stk = new int[size];
             TOS = -1;
+            stk_Num++;
         }
+        stack(stack& other)
+        {
+        	if (this == &s) return *this; // Self-assignment check
+        	this->size=other.size;
+        	this->TOS=other.TOS;
+        	stk=new int[this->size];
+        	for(int i=0;i<(this->size);i++)
+        	{
+        		stk[i]=other.stk[i];
+        	}
+        	stk_Num++;
+        }
+        
+        stack& operator=(const stack& s)
+		{
+			if (this == &s) return *this; // Self-assignment check
+
+			// Deallocate the existing memory
+			delete[] this->stk;
+
+			// Copy the size and top of stack from the source object
+			this->size = s.size;
+			this->TOS = s.TOS;
+
+			// Allocate new memory and copy the elements
+			this->stk = new int[this->size];
+			for (int i = 0; i < s.TOS; i++) {
+				this->stk[i] = s.stk[i];
+			}
+
+			return *this; // Return the current object
+		}
+
         int pop()
         {
             if (TOS >= 0)
@@ -43,13 +79,20 @@ class stack
             }
         }
         
+     
+        static int getSTKnum()
+        {
+	   	return stk_Num;
+        }
         ~stack()
         {
             delete[] stk;
             stk = nullptr;
+            stk_Num--;
         }
 };
 
+int stack::stk_Num=0;
 int main()
 {
     stack s1; // Default size stack
