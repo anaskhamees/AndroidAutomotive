@@ -1,0 +1,1 @@
+savedcmd_/home/anas/AndroidAutomotive/DeviceDrivers/Module.symvers :=  scripts/mod/modpost -m -a      -o /home/anas/AndroidAutomotive/DeviceDrivers/Module.symvers -T /home/anas/AndroidAutomotive/DeviceDrivers/modules.order -i Module.symvers -e 

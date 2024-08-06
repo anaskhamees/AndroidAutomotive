@@ -1,0 +1,1 @@
+savedcmd_/home/anas/AndroidAutomotive/DeviceDrivers/charDevice/simple_char_driver.mod := printf '%s\n'   simple_char_driver.o | awk '!x[$$0]++ { print("/home/anas/AndroidAutomotive/DeviceDrivers/charDevice/"$$0) }' > /home/anas/AndroidAutomotive/DeviceDrivers/charDevice/simple_char_driver.mod

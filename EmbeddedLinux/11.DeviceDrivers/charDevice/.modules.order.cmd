@@ -1,0 +1,1 @@
+savedcmd_/home/anas/AndroidAutomotive/DeviceDrivers/charDevice/modules.order := {   echo /home/anas/AndroidAutomotive/DeviceDrivers/charDevice/simple_char_driver.o; :; } > /home/anas/AndroidAutomotive/DeviceDrivers/charDevice/modules.order
