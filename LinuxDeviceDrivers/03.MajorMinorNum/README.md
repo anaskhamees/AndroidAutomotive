@@ -566,3 +566,55 @@ module_exit(mydriver_exit);
 make
 ```
 
+>![image-20240810180952452](README.assets/image-20240810180952452.png)
+>
+>1. **Entering Directory**:`make[1]: Entering directory '/usr/src/linux-headers-6.5.0-45-generic'`
+>
+>   - `make` has entered the kernel headers directory to start the build process.
+>
+>2. **Warning**:
+>
+>   ```makefile
+>   warning: the compiler differs from the one used to build the kernel
+>     The kernel was built by: x86_64-linux-gnu-gcc-12 (Ubuntu 12.3.0-1ubuntu1~22.04) 12.3.0
+>     You are using:           gcc-12 (Ubuntu 12.3.0-1ubuntu1~22.04) 12.3.0
+>   ```
+>
+>   - This is a warning that the version of the GCC compiler used to build the kernel may differ from the one used to compile the module. However, in this case, I am using the same GCC version as used for the kernel (`gcc-12`), so this warning can typically be ignored unless  I encounter issues.
+>
+>3. **Building Module Objects**:
+>
+>   ```makefile
+>   CC [M]  /home/anas/AndroidAutomotive/LinuxDeviceDrivers/03.MajorMinorNum/majorNumber.o
+>   MODPOST /home/anas/AndroidAutomotive/LinuxDeviceDrivers/03.MajorMinorNum/Module.symvers
+>   CC [M]  /home/anas/AndroidAutomotive/LinuxDeviceDrivers/03.MajorMinorNum/majorNumber.mod.o
+>   LD [M]  /home/anas/AndroidAutomotive/LinuxDeviceDrivers/03.MajorMinorNum/majorNumber.ko
+>   ```
+>
+>   - **`CC [M] majorNumber.o`**: Compiling the module source file (`majorNumber.c`) to an object file (`majorNumber.o`).
+>   - **`MODPOST Module.symvers`**: Creating a symbol version file that helps ensure the module's symbols match the kernel's symbols.
+>   - **`CC [M] majorNumber.mod.o`**: Compiling the module’s metadata file (`majorNumber.mod.c`) to an object file.
+>   - **`LD [M] majorNumber.ko`**: Linking the object files to create the final kernel module (`majorNumber.ko`).
+>
+>4. **BTF Generation Skipped**:
+>
+>   ```
+>   bashCopy codeBTF [M] /home/anas/AndroidAutomotive/LinuxDeviceDrivers/03.MajorMinorNum/majorNumber.ko
+>   Skipping BTF generation for /home/anas/AndroidAutomotive/LinuxDeviceDrivers/03.MajorMinorNum/majorNumber.ko due to unavailability of vmlinux
+>   ```
+>
+>   - **`BTF`**: BTF (BTF - BTF Type Format) generation is related to debugging and tracing. The kernel tries to generate BTF information for the module but skips it because the required `vmlinux` file (a symbolic link to the kernel image with debug information) is not available.
+>
+>5. **Leaving Directory**:
+>
+>   ```
+>   make[1]: Leaving directory '/usr/src/linux-headers-6.5.0-45-generic'
+>   ```
+>
+>   - `make` has finished the build process and is leaving the kernel headers directory.
+>
+>### 
+
+### ![image-20240810235257349](README.assets/image-20240810235257349.png)
+
+![image-20240810235334828](README.assets/image-20240810235334828.png)
