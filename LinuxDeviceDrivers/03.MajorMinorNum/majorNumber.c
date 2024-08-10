@@ -67,16 +67,40 @@ MODULE_AUTHOR("Anas Khamees");
 
 /**
  * @brief   : Describes the purpose of the module.
- * @details : A simple Hello World Kernel Module for educational purposes.
+ * @details : A simple  Kernel Module for educational purposes.
  */
-MODULE_DESCRIPTION("A simple Hello World Kernel Module");
+MODULE_DESCRIPTION("A simple Kernel Module with major Num");
 
 /**
- * @brief   : Defines a module parameter.
- * @param   : number - An integer parameter that can be passed during module load.
- * @details : The 'number' variable is declared as a module parameter, which can be passed 
- *            when the module is loaded. The permissions (S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP) 
- *            allow the parameter to be readable and writable by the user and group.
+ * @brief   : Defines a module parameter 'number'.
+ * @param   : number - An integer parameter that can be passed during module load (run-time).
+ * @details : The 'number' variable is declared as a module parameter, which can be set 
+ *            when the module is loaded into the kernel. This allows dynamic configuration 
+ *            of the module's behavior without recompiling the module.
+ * 
+ * The permissions:
+ *  1. **S_IRUSR** (User Read) - (0400): Allows the owner (user) to read the parameter. 
+ *     - (S)   stands for **STAT** syscall, which provides file status information.
+ *     - (I)   stands for **INODE**, a data structure that holds file metadata.
+ *     - (R)   stands for **READ**, indicating read permissions.
+ *     - (USR) stands for **USER**, referring to the file owner.
+ *  2. **S_IWUSR** (User Write) - (0200): Allows the owner (user) to write (modify) the parameter.
+ *     - (S)   stands for **STAT** syscall.
+ *     - (I)   stands for **INODE**.
+ *     - (W)   stands for **WRITE**, indicating write permissions.
+ *     - (USR) stands for **USER**.
+ *  3. **S_IRGRP** (Group Read) - (0040): Allows the group members to read the parameter.
+ *     - (S)   stands for **STAT** syscall.
+ *     - (I)   stands for **INODE**.
+ *     - (R)   stands for **READ**.
+ *     - (GRP) stands for **GROUP**, referring to users in the file's group.
+ *  4. **S_IWGRP** (Group Write) - (0020): Allows the group members to write (modify) the parameter.
+ *     - (S)   stands for **STAT** syscall.
+ *     - (I)   stands for **INODE**.
+ *     - (W)   stands for **WRITE**.
+ *     - (GRP) stands for **GROUP**.
+ * 
+ * These permissions enable both the user and group to read and modify the parameter's value.
  */
 int number = 0;
 module_param(number, int, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP);
@@ -104,21 +128,21 @@ int majorNumber = 0;
  */
 static int driver_open(struct inode *device_file, struct file *instance)
 {
-    printk("%s driver open function was called \n", __FUNCTION__);
+    printk("%s  open function was called \n", __FUNCTION__);
     return 0;
 }
 
 /**
  * @brief   : Closes the device file.
  * @param   : device_file - Pointer to the inode structure, representing the file on disk.
- * @param   : instance - Pointer to the file structure, representing an open file.
+ * @param   : instance - Pointer to the file structure, representing an open file in the current process (RAM).
  * @return  : Always returns 0 (success).
  * @details : This function is called whenever the device file is closed. It logs a message 
  *            to the kernel log indicating that the 'close' function was called.
  */
 static int driver_close(struct inode *device_file, struct file *instance)
 {
-    printk("%s driver close function was called \n", __FUNCTION__);
+    printk("%s  close function was called \n", __FUNCTION__);
     return 0;
 }
 
@@ -129,7 +153,7 @@ static int driver_close(struct inode *device_file, struct file *instance)
  *            to THIS_MODULE, indicating that this module is responsible for these operations.
  */
 struct file_operations fops = {
-    .owner = THIS_MODULE,
+    .owner = THIS_MODULE,  /* this file structure related to this driver */
     .open = driver_open,
     .release = driver_close
 };
@@ -137,16 +161,27 @@ struct file_operations fops = {
 /**
  * @brief   : Initializes the device driver module.
  * @return  : Always returns 0 (success).
- * @details : This function is called when the module is loaded into the kernel. It registers 
- *            a character device with the major number provided in the 'number' parameter 
- *            and links it with the file operations defined in the 'fops' structure.
+ * @details : This function is called when the module is loaded into the kernel.
+ *  It registers a character device with the major number provided in the 'number' parameter 
+ *  and links it with the file operations defined in the 'fops' structure.
  * @note    : The 'majorNumber' is set to the value of 'number' passed during module load.
  */
 static int __init mydriver_init(void)
 {
+    int returnValue;
     majorNumber = number;
-    register_chrdev(majorNumber, "AnasVirtualDriver", &fops);
     printk("Hello, This is the init function of my driver\n");
+
+    returnValue=register_chrdev(majorNumber, "AnasVirtualDriver", &fops);
+    if(returnValue==0)
+    {
+        printk("%s return value =0  -- Registered Device with MajorNumber: %d , MinorNumber: %d \n",__FUNCTION__,majorNumber,0);
+    }
+    else
+    {
+        printk("could Not register Device with Major Numer: %d \n",majorNumber);
+        return -1;
+    }
     return 0;
 }
 
