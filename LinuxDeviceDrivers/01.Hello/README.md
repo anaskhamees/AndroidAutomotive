@@ -43,13 +43,16 @@ MODULE_DESCRIPTION("A simple Hello World Kernel Module");
 
 static int __init mydriver_init(void)
 {
-    printk("Hello, This is init Fun of my driver");
+    /* - The KERN_INFO log level should ensure that the message is displayed. Other common log levels include KERN_DEBUG, KERN_WARNING, KERN_ERR.
+       - Don't remove the \n to run the driver correctly*/
+    printk(KERN_INFO "Hello, This is init Fun of my driver\n");
     return 0;
 }
 
 static void __exit mydriver_exit(void)
 {
-    printk("goodbye, This is exit Fun of my driver");
+    /*- Don't remove the \n to run the driver correctly*/
+    printk(KERN_INFO "goodbye, This is exit Fun of my driver\n");
 }
 
 module_init(mydriver_init);
@@ -160,3 +163,12 @@ clean:
 >
 > **"taints kernel"**: Loading out-of-tree modules will taint the kernel. Tainted kernels are less likely to be supported by official kernel developers.
 
+
+
+- Load the kernel module (my device driver)
+
+![image-20240807234732131](README.assets/image-20240807234732131.png)
+
+- Remove the kernel module
+
+  ![image-20240807234847380](README.assets/image-20240807234847380.png) 

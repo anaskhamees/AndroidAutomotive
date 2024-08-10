@@ -7,13 +7,13 @@ MODULE_DESCRIPTION("A simple Hello World Kernel Module");
 
 static int __init mydriver_init(void)
 {
-    printk("Hello, This is init Fun of my driver");
+	printk("Hello, This is init Fun of my driver\n");
     return 0;
 }
 
 static void __exit mydriver_exit(void)
 {
-    printk("goodbye, This is exit Fun of my driver");
+    printk("goodbye, This is exit Fun of my driver\n");
 }
 
 module_init(mydriver_init);

@@ -1,0 +1,1 @@
+savedcmd_/home/anas/AndroidAutomotive/LinuxDeviceDrivers/03.MajorMinorNum/modules.order := {   echo /home/anas/AndroidAutomotive/LinuxDeviceDrivers/03.MajorMinorNum/majorNumber.o; :; } > /home/anas/AndroidAutomotive/LinuxDeviceDrivers/03.MajorMinorNum/modules.order

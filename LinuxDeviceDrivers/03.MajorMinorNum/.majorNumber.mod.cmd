@@ -1,0 +1,1 @@
+savedcmd_/home/anas/AndroidAutomotive/LinuxDeviceDrivers/03.MajorMinorNum/majorNumber.mod := printf '%s\n'   majorNumber.o | awk '!x[$$0]++ { print("/home/anas/AndroidAutomotive/LinuxDeviceDrivers/03.MajorMinorNum/"$$0) }' > /home/anas/AndroidAutomotive/LinuxDeviceDrivers/03.MajorMinorNum/majorNumber.mod
