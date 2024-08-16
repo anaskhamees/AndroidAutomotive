@@ -1,0 +1,1 @@
+savedcmd_/home/anas/AndroidAutomotive/LinuxDeviceDrivers/04.CreatFileAutomatic/Module.symvers :=  scripts/mod/modpost -m -a      -o /home/anas/AndroidAutomotive/LinuxDeviceDrivers/04.CreatFileAutomatic/Module.symvers -T /home/anas/AndroidAutomotive/LinuxDeviceDrivers/04.CreatFileAutomatic/modules.order -i Module.symvers -e 

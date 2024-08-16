@@ -1,0 +1,1 @@
+savedcmd_/home/anas/AndroidAutomotive/LinuxDeviceDrivers/03.2.DynamicMajorMinorNum/DynamicMajorNumber.mod := printf '%s\n'   DynamicMajorNumber.o | awk '!x[$$0]++ { print("/home/anas/AndroidAutomotive/LinuxDeviceDrivers/03.2.DynamicMajorMinorNum/"$$0) }' > /home/anas/AndroidAutomotive/LinuxDeviceDrivers/03.2.DynamicMajorMinorNum/DynamicMajorNumber.mod

@@ -1,0 +1,1 @@
+savedcmd_/home/anas/AndroidAutomotive/LinuxDeviceDrivers/04.CreatFileAutomatic/CreatFileAuto.mod := printf '%s\n'   CreatFileAuto.o | awk '!x[$$0]++ { print("/home/anas/AndroidAutomotive/LinuxDeviceDrivers/04.CreatFileAutomatic/"$$0) }' > /home/anas/AndroidAutomotive/LinuxDeviceDrivers/04.CreatFileAutomatic/CreatFileAuto.mod
