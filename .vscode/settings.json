@@ -55,16 +55,5 @@
   "C_Cpp_Runner.useLeakSanitizer": false,
   "C_Cpp_Runner.showCompilationTime": false,
   "C_Cpp_Runner.useLinkTimeOptimization": false,
-  "C_Cpp_Runner.msvcSecureNoWarnings": false,
-  "files.associations": {
-    "thread": "cpp",
-    "cdev.h": "c",
-    "device.h": "c",
-    "list.h": "c",
-    "module.h": "c",
-    "fs.h": "c",
-    "moduleparam.h": "c",
-    "kdev_t.h": "c",
-    "class.h": "c"
-  }
+  "C_Cpp_Runner.msvcSecureNoWarnings": false
 }

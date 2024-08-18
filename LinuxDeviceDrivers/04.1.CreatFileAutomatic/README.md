@@ -1,3 +1,100 @@
+```c
+#include <linux/module.h>      
+#include <linux/moduleparam.h>  
+#include <linux/fs.h>     
+#include <linux/cdev.h>
+
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("Anas Khamees");
+MODULE_DESCRIPTION("A simple Kernel Module");
+
+dev_t deviceNum;
+struct cdev charDevice;
+struct class *myClass;
+struct device* myDevice;
+
+static int driver_open(struct inode *device_file, struct file *instance)
+{
+    printk("%s  open function of the driver was called \n", __FUNCTION__);
+    return 0;
+}
+
+static int driver_close(struct inode *device_file, struct file *instance)
+{
+    printk("%s  close function of the driver was called \n", __FUNCTION__);
+    return 0;
+}
+
+struct file_operations fops = {
+    .owner = THIS_MODULE,
+    .open = driver_open,
+    .release = driver_close
+};
+
+static int __init mydriver_init(void)
+{
+    int returnValue;
+    printk("Hello, This is the init function of my driver\n");
+
+    returnValue = alloc_chrdev_region(&deviceNum, 0, 1, "AnasDynamicDriver");
+    if (returnValue == 0)
+    {
+        printk("%s return value =0  -- Registered Device with MajorNumber: %d , MinorNumber: %d \n", __FUNCTION__, MAJOR(deviceNum), MINOR(deviceNum));
+    }
+    else
+    {
+        printk("could Not register Device with Major Numer: %d \n", MAJOR(deviceNum));
+        return -1;
+    }
+
+    cdev_init(&charDevice, &fops);
+    returnValue = cdev_add(&charDevice, deviceNum, 1);
+    if (returnValue != 0)
+    {
+        unregister_chrdev_region(deviceNum, 1);
+        printk("Failed to register a device driver to kernel \n");
+        return -1;
+    }
+
+    myClass = class_create("AnasClass");
+    if (myClass == NULL)
+    {
+        printk("Failed to create device class\n");
+        cdev_del(&charDevice);
+        unregister_chrdev_region(deviceNum, 1);
+        return -1;
+    }
+
+    myDevice = device_create(myClass, NULL, deviceNum, NULL, "AnasDeviceFile");
+    if (myDevice == NULL)
+    {
+        printk("Failed to create device file\n");
+        cdev_del(&charDevice);
+        class_destroy(myClass);
+        unregister_chrdev_region(deviceNum, 1);
+        return -1;
+    }
+
+    printk("Anas device driver is created successfully \n");
+
+    return 0;
+}
+
+static void __exit mydriver_exit(void)
+{
+    unregister_chrdev_region(deviceNum, 1);
+    printk("Goodbye, This is the exit function of my driver\n");
+}
+
+module_init(mydriver_init);
+module_exit(mydriver_exit);
+
+```
+
+
+
+
+
 ### 1. **Including Header Files**
 
 ```c
@@ -72,9 +169,9 @@ struct device *myDevice;
   >
   >
 
-- **`struct class \*myClass`**: Represents the device class, allowing the creation of device files.
+- **`struct class *myClass`**: Represents the device class, allowing the creation of device files.
 
-  >The **`struct class \*myClass`** represents a device class in the Linux kernel, which is a higher-level abstraction used when creating and managing device files. The class concept is closely related to user-space interaction, particularly when dealing with `/dev/` files. Here's a detailed explanation of its importance and how it's used:
+  >The **`struct class *myClass`** represents a device class in the Linux kernel, which is a higher-level abstraction used when creating and managing device files. The class concept is closely related to user-space interaction, particularly when dealing with `/dev/` files. Here's a detailed explanation of its importance and how it's used:
   >
   >### Importance of `struct class *myClass`
   >
@@ -105,9 +202,9 @@ struct device *myDevice;
   >
   >
 
-- **`struct device \*myDevice`**: Represents the device itself, allowing interaction with user space.
+- **`struct device *myDevice`**: Represents the device itself, allowing interaction with user space.
 
-  >The **`struct device \*myDevice`** represents a specific device that is associated with the device class (represented by `struct class *myClass`). It is used to create a device entry in the `/dev/` directory that user-space programs can interact with.
+  >The **`struct device *myDevice`** represents a specific device that is associated with the device class (represented by `struct class *myClass`). It is used to create a device entry in the `/dev/` directory that user-space programs can interact with.
   >
   >### Importance of `struct device *myDevice`
   >
