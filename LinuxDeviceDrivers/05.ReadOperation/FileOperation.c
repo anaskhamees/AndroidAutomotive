@@ -67,5 +67,60 @@ static int __init driverInit()
 {
     int returnval;
     printk("Hello, This is the init function of my driver\n");
+    
+    /* 1- Allocate device driver Number */
 
+    returnval=alloc_chrdev_region(&deviceNumber,0,1,"AnasDriver");
+    if(returnval==0)
+    {
+        printk("%s Return Value = 0 -- AnasDriver Registered with Major Number: %d ,, Minor Number : %d \n",__FUNCTION__,MAJOR(deviceNumber),MINOR(deviceNumber));
+    }
+    else
+    {
+        printk("could Not register Device with Major Numer: %d \n",MAJOR(deviceNum));
+        return -1;
+    }
+
+/* 2- Define Is the driver character or Block or Network Device*/
+    cdev_init(&charDevice,&fops);
+    returnval=cdev_add(&charDevice,1);
+    if(returnval!=0)
+    {
+        printk("Faild to register a device driver to kernel \n");
+        goto CHAR_DEVICE_REG_ERR;
+    }
+/* 3- Generate a File for a device driver */
+/* 3.1. Create Class */
+    virtualClass=class_create("AnasClass");
+    if(virtualClass==NULL)
+    {
+        printk("Faild to create Device Class");
+        goto CLASS_ERR;
+    }
+    /* 3.2. Create  Device File */
+    virtualDevice=device_create(virtualClass,NULL,deviceNumber,NULL,"AnasDeviceFile");
+    if(virtualDevice==NULL)
+    {
+        printk("Faild to create device file");
+    }
+    
+    printk("AnasDeviceDriver is Created Sucessfully\n");
+    return 0;
 }
+
+static void __exit driverExit(void)
+{
+    unregister_chrdev_region(deviceNum, 1);
+    printk("Goodbye, This is the exit function of my driver\n");
+}
+
+DEVICE_CREATE_ERR:
+    class_destroy(virtualClass);
+CLASS_ERR:
+    cdev_del(&charDevice);
+CHAR_DEVICE_REG_ERR:
+    unregister_chrdev_region(deviceNumber,1);
+    return -1;
+
+module_init(driverInit);
+module_exit(driverExit);
