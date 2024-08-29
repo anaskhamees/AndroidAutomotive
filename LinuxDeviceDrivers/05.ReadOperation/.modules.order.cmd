@@ -1,0 +1,1 @@
+savedcmd_/home/anas/AndroidAutomotive/LinuxDeviceDrivers/05.ReadOperation/modules.order := {   echo /home/anas/AndroidAutomotive/LinuxDeviceDrivers/05.ReadOperation/FileOperation.o; :; } > /home/anas/AndroidAutomotive/LinuxDeviceDrivers/05.ReadOperation/modules.order

@@ -3,13 +3,14 @@ class Calculator
 
 	public static void main(String[] args)
 	{
-		double num1=Double.parseDouble(args[0]);
-		double num2=Double.parseDouble(args[2]);
-		String operator=args[1];
 		if(args.length>3)
 		{
 			System.out.println(" Error:: You Entered More than 2 Numbers !!");
 		}
+		double num1=Double.parseDouble(args[0]);
+		double num2=Double.parseDouble(args[2]);
+		String operator=args[1];
+		
 		else
 		{
 			switch(operator)
@@ -35,6 +36,7 @@ class Calculator
 					break;
 				default: 
 					System.out.println("Error :: Non-Provided Operator !!");
+					break;
 			}	
 		}
 			

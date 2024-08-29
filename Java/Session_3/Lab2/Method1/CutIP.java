@@ -2,13 +2,14 @@ class IP
 {
 	public static void main(String[] args)
 	{
-		String ip=args[0];
-		int Endindex=0;
-		int Startindex=0;
 		if(args.length>1)
 		{
 			System.out.println(" Error: Enter only one parameter ");
 		}
+		String ip=args[0];
+		int Endindex=0;
+		int Startindex=0;
+		
 		else 
 		{
 			while(true)

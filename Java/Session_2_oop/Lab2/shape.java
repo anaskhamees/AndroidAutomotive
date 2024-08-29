@@ -99,7 +99,7 @@ class Main
 	}
 	public static void main(String[] args)
 	{
-		Triangle t=new Triangle(4,4);
+		shape t=new Triangle(4,4);
 		System.out.println(" Triangle Area: "+t.calcArea());
 		System.out.println("###################################");
 		Rectangle r=new Rectangle(4,4);

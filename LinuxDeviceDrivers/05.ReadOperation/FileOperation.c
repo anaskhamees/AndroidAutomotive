@@ -15,7 +15,7 @@
  *      - unregister_chrdev_region()
  *      - alloc_chrdev_region()
  */
-#include<linux/fs.h>
+#include <linux/fs.h>
 /**
  * For Structs:
  *      - struct cdev
@@ -28,99 +28,112 @@
  *      - MINOR
  * cdev.h header includes <linux/device.h> which contains (device_create) function
  */
-#include<linux/cdev.h>
+#include <linux/cdev.h>
 
 /**
  * For Functions:
- *      - struct class *  class_create(const char *name);
+ *      - struct class * class_create(const char *name);
  *      - void class_destroy(const struct class *cls)
  */
-#include <linux/device/class.h>
+#include <linux/device.h> // Correct header file for class_create and device_create
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Anas Khamees");
 MODULE_DESCRIPTION("Virtual Character Device (Kernel Module)");
 
-dev_t          deviceNumber ;
-struct cdev    charDevice   ;
-struct class*  virtualClass ;
-struct device* virtualDevice; 
+dev_t deviceNumber;
+struct cdev charDevice;
+struct class* virtualClass;
+struct device* virtualDevice;
 
-static int driverOpen(struct inode* deviceFile,struct file* currRunFile)
+/* Driver Open Function */
+static int driverOpen(struct inode* deviceFile, struct file* currRunFile)
 {
-    printk("%s - Driver Open Function was Called \n");
+    printk(KERN_INFO "%s - Driver Open Function was Called\n", __FUNCTION__);
     return 0;
 }
 
-static in driverClose(struct inode* deviceFile,struct file* currRunFile)
+/* Driver Read Function */
+ssize_t driverRead (struct file *file, char __user *usrBuff, size_t count, loff_t *offest)
 {
-    printk("%s - Driver close Function was Called\n");
+    printk("driverRead Function is called\n");
+    return 0;
 }
 
-struct file_operations fops{
-    .owner=THIS_MODULE,
-    .open=driverOpen,
-    .release=driverClose
+
+/* Driver Close Function */
+static int driverClose(struct inode* deviceFile, struct file* currRunFile)
+{
+    printk(KERN_INFO "%s - Driver Close Function was Called\n", __FUNCTION__);
+    return 0; // Correct return type for `release` function
+}
+
+/* File operations structure */
+struct file_operations fops = {
+    .owner = THIS_MODULE,
+    .open = driverOpen,
+    .read=driverRead,
+    .release = driverClose
 };
 
-static int __init driverInit()
+/* Driver Initialization */
+static int __init driverInit(void)
 {
     int returnval;
-    printk("Hello, This is the init function of my driver\n");
-    
+    printk(KERN_INFO "Hello, This is the init function of my driver\n");
+
     /* 1- Allocate device driver Number */
-
-    returnval=alloc_chrdev_region(&deviceNumber,0,1,"AnasDriver");
-    if(returnval==0)
-    {
-        printk("%s Return Value = 0 -- AnasDriver Registered with Major Number: %d ,, Minor Number : %d \n",__FUNCTION__,MAJOR(deviceNumber),MINOR(deviceNumber));
+    returnval = alloc_chrdev_region(&deviceNumber, 0, 1, "AnasDriver");
+    if (returnval < 0) {
+        printk(KERN_ERR "Could not register device with Major Number: %d\n", MAJOR(deviceNumber));
+        return returnval;
     }
-    else
-    {
-        printk("could Not register Device with Major Numer: %d \n",MAJOR(deviceNum));
-        return -1;
-    }
+    printk(KERN_INFO "%s Return Value = 0 -- AnasDriver Registered with Major Number: %d, Minor Number: %d\n",
+           __FUNCTION__, MAJOR(deviceNumber), MINOR(deviceNumber));
 
-/* 2- Define Is the driver character or Block or Network Device*/
-    cdev_init(&charDevice,&fops);
-    returnval=cdev_add(&charDevice,1);
-    if(returnval!=0)
-    {
-        printk("Faild to register a device driver to kernel \n");
+    /* 2- Initialize and add character device */
+    cdev_init(&charDevice, &fops);
+    returnval = cdev_add(&charDevice, deviceNumber, 1);
+    if (returnval < 0) {
+        printk(KERN_ERR "Failed to register character device to kernel\n");
         goto CHAR_DEVICE_REG_ERR;
     }
-/* 3- Generate a File for a device driver */
-/* 3.1. Create Class */
-    virtualClass=class_create("AnasClass");
-    if(virtualClass==NULL)
-    {
-        printk("Faild to create Device Class");
-        goto CLASS_ERR;
-    }
-    /* 3.2. Create  Device File */
-    virtualDevice=device_create(virtualClass,NULL,deviceNumber,NULL,"AnasDeviceFile");
-    if(virtualDevice==NULL)
-    {
-        printk("Faild to create device file");
-    }
-    
-    printk("AnasDeviceDriver is Created Sucessfully\n");
-    return 0;
-}
 
-static void __exit driverExit(void)
-{
-    unregister_chrdev_region(deviceNum, 1);
-    printk("Goodbye, This is the exit function of my driver\n");
-}
+    /* 3- Create a device file */
+    /* 3.1. Create Class */
+    virtualClass = class_create("AnasClass");
+    if (IS_ERR(virtualClass)) {
+        printk(KERN_ERR "Failed to create device class\n");
+        return PTR_ERR(virtualClass);
+    }
+
+    /* 3.2. Create Device File */
+    virtualDevice = device_create(virtualClass, NULL, deviceNumber, NULL, "AnasDeviceFile");
+    if (IS_ERR(virtualDevice)) {
+        printk(KERN_ERR "Failed to create device file\n");
+        goto DEVICE_CREATE_ERR;
+    }
+
+    printk(KERN_INFO "AnasDeviceDriver is Created Successfully\n");
+    return 0;
 
 DEVICE_CREATE_ERR:
     class_destroy(virtualClass);
-CLASS_ERR:
-    cdev_del(&charDevice);
 CHAR_DEVICE_REG_ERR:
-    unregister_chrdev_region(deviceNumber,1);
+    cdev_del(&charDevice);
+    unregister_chrdev_region(deviceNumber, 1);
     return -1;
+}
+
+/* Driver Exit */
+static void __exit driverExit(void)
+{
+    device_destroy(virtualClass, deviceNumber); // Clean up device file
+    class_destroy(virtualClass); // Clean up class
+    cdev_del(&charDevice); // Remove character device
+    unregister_chrdev_region(deviceNumber, 1); // Unregister device number
+    printk(KERN_INFO "Goodbye, This is the exit function of my driver\n");
+}
 
 module_init(driverInit);
 module_exit(driverExit);
