@@ -59,15 +59,12 @@ ssize_t driverRead (struct file *file, char __user *usrBuff, size_t count, loff_
     printk("driverRead Function is called\n");
     return 0;
 }
-
-
 /* Driver Close Function */
 static int driverClose(struct inode* deviceFile, struct file* currRunFile)
 {
     printk(KERN_INFO "%s - Driver Close Function was Called\n", __FUNCTION__);
     return 0; // Correct return type for `release` function
 }
-
 /* File operations structure */
 struct file_operations fops = {
     .owner = THIS_MODULE,
@@ -75,7 +72,6 @@ struct file_operations fops = {
     .read=driverRead,
     .release = driverClose
 };
-
 /* Driver Initialization */
 static int __init driverInit(void)
 {
@@ -98,7 +94,6 @@ static int __init driverInit(void)
         printk(KERN_ERR "Failed to register character device to kernel\n");
         goto CHAR_DEVICE_REG_ERR;
     }
-
     /* 3- Create a device file */
     /* 3.1. Create Class */
     virtualClass = class_create("AnasClass");
@@ -106,14 +101,12 @@ static int __init driverInit(void)
         printk(KERN_ERR "Failed to create device class\n");
         return PTR_ERR(virtualClass);
     }
-
     /* 3.2. Create Device File */
     virtualDevice = device_create(virtualClass, NULL, deviceNumber, NULL, "AnasDeviceFile");
     if (IS_ERR(virtualDevice)) {
         printk(KERN_ERR "Failed to create device file\n");
         goto DEVICE_CREATE_ERR;
     }
-
     printk(KERN_INFO "AnasDeviceDriver is Created Successfully\n");
     return 0;
 
