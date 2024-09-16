@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">مرحباً</string>
+    <string name="nextbtn">التالي</string>
+    <string name="btnclose">إغلاث</string>
+    <string name="message">الرساله</string>
+    <string name="phone">الهاتف</string>
+    <string name="backbtnnn">الرجوع</string>
+</resources>

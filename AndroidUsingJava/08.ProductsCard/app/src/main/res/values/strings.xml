@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">productsCard</string>
+    <string name="Title">TitleID</string>
+    <string name="titleVal">TitleVal</string>
+    <string name="price">Price</string>
+    <string name="priceVal">PriceVal</string>
+    <string name="band">Brand</string>
+    <string name="brandVal">brandVal</string>
+    <string name="description">Description</string>
+    <string name="descriptionval">Description</string>
+    <string name="rating">Rating</string>
+</resources>

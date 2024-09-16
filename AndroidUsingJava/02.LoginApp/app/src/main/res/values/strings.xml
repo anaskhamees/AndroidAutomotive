@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Login</string>
+    <string name="name" />
+    <string name="nextButton" />
+    <string name="nextbtn">Nextbtn</string>
+    <string name="btnclose">BtnClose</string>
+    <string name="message">Message</string>
+    <string name="phone">Phone</string>
+    <string name="BackBtn" />
+    <string name="backbtnnn">Backbtnnn</string>
+</resources>

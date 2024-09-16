@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">downloadImage</string>
+    <string name="Url">URL</string>
+    <string name="download">Download\n</string>
+</resources>
