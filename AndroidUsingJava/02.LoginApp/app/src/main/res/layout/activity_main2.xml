@@ -7,6 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity2">
 
+    <Button
+        android:id="@+id/btnWIS_ID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="59dp"
+        android:layout_marginTop="38dp"
+        android:layout_marginEnd="78dp"
+        android:text="@string/writeInStorage"
+        app:layout_constraintEnd_toStartOf="@+id/btnRIS_ID"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnWSP_ID" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="91dp"
@@ -65,4 +77,56 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="20dp" />
+
+    <Button
+        android:id="@+id/btnWSP_ID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="59dp"
+        android:layout_marginTop="48dp"
+        android:text="@string/writeshared"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backBtn" />
+
+    <Button
+        android:id="@+id/btnRshP_ID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="44dp"
+        android:text="@string/readShared"
+        app:layout_constraintStart_toEndOf="@+id/btnWSP_ID"
+        app:layout_constraintTop_toBottomOf="@+id/backBtn" />
+
+    <Button
+        android:id="@+id/btnRIS_ID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/readIS"
+        app:layout_constraintStart_toEndOf="@+id/btnWIS_ID"
+        app:layout_constraintTop_toBottomOf="@+id/btnRshP_ID" />
+
+    <Button
+        android:id="@+id/SQLW_ID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="71dp"
+        android:layout_marginTop="31dp"
+        android:text="@string/sqlWrite"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnWIS_ID" />
+
+    <Button
+        android:id="@+id/SqlR_ID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="33dp"
+        android:text="@string/sqlRead"
+        app:layout_constraintBottom_toBottomOf="@+id/SQLW_ID"
+        app:layout_constraintStart_toEndOf="@+id/SQLW_ID"
+        app:layout_constraintTop_toBottomOf="@+id/btnRIS_ID" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,4 +8,10 @@
     <string name="phone">Phone</string>
     <string name="BackBtn" />
     <string name="backbtnnn">Backbtnnn</string>
+    <string name="writeshared">Write-shared</string>
+    <string name="readShared">ReadShared</string>
+    <string name="writeInStorage">WriteInStorage</string>
+    <string name="readIS">ReadInStorgae</string>
+    <string name="sqlWrite">SQLwrite</string>
+    <string name="sqlRead">SQLread</string>
 </resources>

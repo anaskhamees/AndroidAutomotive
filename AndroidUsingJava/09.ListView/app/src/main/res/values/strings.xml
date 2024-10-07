@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CircularListview</string>
+    <string name="rating">Rating</string>
+    <string name="description">Description\n</string>
+    <string name="brand">Brand</string>
+    <string name="price">Price</string>
+    <string name="title">Title</string>
+</resources>

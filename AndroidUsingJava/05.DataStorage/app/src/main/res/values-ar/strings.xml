@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">لاب</string>
+    <string name="message">رسالة</string>
+    <string name="mobilenumber">رقم الهاتف</string>
+    <string name="next">التالى</string>
+    <string name="close">اغلاق</string>
+    <string name="phone">الهاتف</string>
+    <string name="back">الرجوع</string>
+</resources>

@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Lab2</string>
+    <string name="message">Message</string>
+    <string name="mobilenumber">Mobile Number</string>
+    <string name="next">Next</string>
+    <string name="close">Close</string>
+    <string name="phone">Phone</string>
+    <string name="back">Back</string>
+    <string name="writeshared">WriteShared</string>
+    <string name="readshared">ReadShared</string>
+    <string name="writeoutputstream">WriteStream</string>
+    <string name="readstream">ReadStream</string>
+    <string name="readsql">ReadDB</string>
+    <string name="writesql">WriteDB</string>
+</resources>

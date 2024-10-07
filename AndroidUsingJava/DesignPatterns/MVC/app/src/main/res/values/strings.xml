@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">MCV</string>
+    <string name="allProducts">GetAllProducts</string>
+    <string name="favProduct">GetFavProducts</string>
+    <string name="exit">Exit</string>
+    <string name="title">Title</string>
+    <string name="price">Price</string>
+    <string name="brand">Brand</string>
+    <string name="description">Description</string>
+    <string name="rating">Rating</string>
+    <string name="remove">Remove From Fav</string>
+    <string name="addFav">Add To Fav</string>
+</resources>
