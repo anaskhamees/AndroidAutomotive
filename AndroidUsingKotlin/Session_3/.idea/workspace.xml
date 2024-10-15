@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="68b8c3f1-6120-418c-b317-04423c8e7497" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../../AndroidUsingJava/FinalProject/AndroidProject_Java/FinalProject/app/src/main/ingredients_image-playstore.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../AndroidUsingJava/FinalProject/AndroidProject_Java/FinalProject/app/src/main/res/drawable/ingredients_image_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/.idea/Session_1.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/.idea/deploymentTargetSelector.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/.idea/kotlinc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/.idea/migrations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/.idea/other.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/Lab1/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/Lab1/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/Lab1/.idea/deploymentTargetSelector.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/Lab1/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/Lab1/.idea/kotlinc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/Lab1/.idea/migrations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/Lab1/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/Lab1/.idea/other.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/Lab1/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/Lab1/app/src/main/java/com/example/lab1/ActivityB.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/Lab1/app/src/main/java/com/example/lab1/FragmentA.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/Lab1/app/src/main/java/com/example/lab1/FragmentB.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/Lab1/app/src/main/java/com/example/lab1/Product.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/Lab1/app/src/main/java/com/example/lab1/ProductListAdapter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/Lab1/app/src/main/res/drawable/basil.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/Lab1/app/src/main/res/drawable/beetroot.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/Lab1/app/src/main/res/drawable/broccoli.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/Lab1/app/src/main/res/drawable/grapes.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/Lab1/app/src/main/res/drawable/tomato.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/Lab1/app/src/main/res/drawable/watermelon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/Lab1/app/src/main/res/layout-land/activity_a.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/Lab1/app/src/main/res/layout/activityb.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/Lab1/app/src/main/res/layout/fragment_a.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/Lab1/app/src/main/res/layout/fragment_b.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_1/Lab1/app/src/main/res/layout/single_cell.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_2/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_2/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_2/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_2/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_2/.idea/kotlinc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_2/.idea/migrations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_2/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_2/.idea/other.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_2/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_2/newLocation.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/.idea/deploymentTargetSelector.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/.idea/kotlinc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/.idea/migrations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/.idea/other.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/app/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/app/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/app/proguard-rules.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/app/src/androidTest/java/com/example/lab1/ExampleInstrumentedTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/app/src/main/java/com/example/lab1/BoundService.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/app/src/main/java/com/example/lab1/MainActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/app/src/main/res/drawable/ic_launcher_foreground.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/app/src/main/res/mipmap-hdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/app/src/main/res/mipmap-mdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/app/src/main/res/values-night/themes.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/app/src/main/res/values/themes.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/app/src/main/res/xml/backup_rules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/app/src/main/res/xml/data_extraction_rules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/app/src/test/java/com/example/lab1/ExampleUnitTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/build.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/gradle.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/gradle/libs.versions.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab1/settings.gradle.kts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab2/app/src/main/java/com/example/lab2/DownloadService.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab2/app/src/main/java/com/example/lab2/ImageActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab2/app/src/main/java/com/example/lab2/ImageReciever.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Lab2/app/src/main/res/layout/display_image.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Session_3.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_4/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_4/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_4/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_4/.idea/deploymentTargetSelector.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_4/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_4/.idea/kotlinc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_4/.idea/migrations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_4/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_4/.idea/other.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_4/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_4/app/src/main/java/com/example/workerlab/Fragment1.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_4/app/src/main/java/com/example/workerlab/Fragment2.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_4/app/src/main/java/com/example/workerlab/ListAdapter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_4/app/src/main/java/com/example/workerlab/MainActivity2.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_4/app/src/main/java/com/example/workerlab/NetworkClient.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_4/app/src/main/java/com/example/workerlab/NetworkService.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_4/app/src/main/java/com/example/workerlab/Product.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_4/app/src/main/java/com/example/workerlab/ProductResponse.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_4/app/src/main/java/com/example/workerlab/ProductWorker.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_4/app/src/main/res/layout-land/activity_main.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_4/app/src/main/res/layout/activity_main2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_4/app/src/main/res/layout/fragment.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_4/app/src/main/res/layout/fragment_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_4/app/src/main/res/layout/fragment_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_4/app/src/main/res/layout/fragment_blank.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Session_4/app/src/main/res/layout/item_language.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AndroidUsingJava/FinalProject/AndroidProject_Java" beforeDir="false" afterPath="$PROJECT_DIR$/../../AndroidUsingJava/FinalProject/AndroidProject_Java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AndroidUsingJava/FinalProject/AndroidProject_Java/FinalProject/app/src/main/java/com/example/foodplanner/RandomMealFeature/Presenter/RandomMealPresenter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../AndroidUsingJava/FinalProject/AndroidProject_Java/FinalProject/app/src/main/java/com/example/foodplanner/RandomMealFeature/Presenter/RandomMealPresenter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AndroidUsingJava/FinalProject/AndroidProject_Java/FinalProject/app/src/main/java/com/example/foodplanner/RandomMealFeature/View/RandomMealFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../AndroidUsingJava/FinalProject/AndroidProject_Java/FinalProject/app/src/main/java/com/example/foodplanner/RandomMealFeature/View/RandomMealFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AndroidUsingJava/FinalProject/AndroidProject_Java/FinalProject/app/src/main/res/layout/category_cell_contents.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../AndroidUsingJava/FinalProject/AndroidProject_Java/FinalProject/app/src/main/res/layout/category_cell_contents.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AndroidUsingJava/FinalProject/AndroidProject_Java/FinalProject/app/src/main/res/layout/meal_name_img_cell.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../AndroidUsingJava/FinalProject/AndroidProject_Java/FinalProject/app/src/main/res/layout/meal_name_img_cell.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AndroidUsingJava/FinalProject/AndroidProject_Java/FinalProject/app/src/main/res/mipmap-anydpi-v26/ingredients_image.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../AndroidUsingJava/FinalProject/AndroidProject_Java/FinalProject/app/src/main/res/mipmap-anydpi-v26/ingredients_image.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AndroidUsingJava/FinalProject/AndroidProject_Java/FinalProject/app/src/main/res/mipmap-anydpi-v26/ingredients_image_round.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../AndroidUsingJava/FinalProject/AndroidProject_Java/FinalProject/app/src/main/res/mipmap-anydpi-v26/ingredients_image_round.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="2nFH4rqd5rgh0IlqL8L0PrPLzwv" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/anas/AndroidAutomotive/AndroidUsingKotlin/Session_3/Lab2"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="68b8c3f1-6120-418c-b317-04423c8e7497" name="Changes" comment="" />
+      <created>1728561716265</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1728561716265</updated>
+    </task>
+    <servers />
+  </component>
+</project>
