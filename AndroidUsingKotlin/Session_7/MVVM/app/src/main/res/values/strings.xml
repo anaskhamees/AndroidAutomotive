@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ProductsMVVM</string>
+    <string name="delete">Delete</string>
+</resources>

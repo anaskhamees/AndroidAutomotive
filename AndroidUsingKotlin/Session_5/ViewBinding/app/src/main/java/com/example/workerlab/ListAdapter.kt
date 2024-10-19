@@ -27,7 +27,7 @@ class ListAdapterDemo(private val myListener: (Product) -> Unit) :
     class ViewHolder(private val binding: ItemProductBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(product: Product, myListener: (Product) -> Unit) {
             binding.tvTitle.text = product.title
-            binding.tvPrice.text = product.price.toString()
+            //binding.tvPrice.text = product.price.toString()
 
             // Set click listener for the item
             binding.clConstraint.setOnClickListener {

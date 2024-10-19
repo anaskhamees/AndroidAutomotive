@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:scaleType="centerCrop"
+           />
+
+        <TextView
+            android:id="@+id/txtTilte"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/imageView3"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtBrand2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Brand"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/txtTilte"
+            app:layout_constraintTop_toBottomOf="@id/txtTilte" />
+
+        <TextView
+            android:id="@+id/txtPrice2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Price"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/txtBrand2"
+            app:layout_constraintTop_toBottomOf="@id/txtBrand2" />
+
+        <Button
+            android:id="@+id/btnDel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/delete"
+            app:layout_constraintStart_toEndOf="@id/imageView3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtPrice2"
+            app:layout_constraintWidth_percent="0.5" />
+
+        <TextView
+            android:id="@+id/editTitle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/txtTilte"
+            app:layout_constraintTop_toTopOf="@id/txtTilte"
+            android:layout_marginStart="8dp"
+            android:text="Edit Title" />
+
+        <TextView
+            android:id="@+id/editBrand2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="112dp"
+            android:layout_marginTop="4dp"
+            android:text="Edit Brand"
+            app:layout_constraintStart_toStartOf="@id/editTitle2"
+            app:layout_constraintTop_toTopOf="@id/txtBrand2" />
+
+        <TextView
+            android:id="@+id/editPrice2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/editBrand2"
+            app:layout_constraintTop_toTopOf="@id/txtPrice2"
+            android:layout_marginStart="8dp"
+            android:text="Edit Price" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
