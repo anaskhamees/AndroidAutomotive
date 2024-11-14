@@ -98,9 +98,9 @@ bool getGpioValue(int pin, bool &value);};
 /mnt/aosp-build/android-14.0.0_r67/hardware/interfaces/automotive/vehicle/aidl/impl/fake_impl/hardware/include
 ```
 
-![image-20241114143936894](/home/iti/README.assets/image-20241114143936894-1731588468495-4.png)
+![image-20241114143936894](README.assets/image-20241114143936894-1731588468495-4.png)
 
-![image-20241114144015853](/home/iti/README.assets/image-20241114144015853.png)
+![image-20241114144015853](README.assets/image-20241114144015853.png)
 
 
 
@@ -190,9 +190,9 @@ int getTemperatureVal(); // this function can be RPM,Speed...or any analog senso
 /mnt/aosp-build/android-14.0.0_r67/hardware/interfaces/automotive/vehicle/aidl/impl/fake_impl/hardware/include
 ```
 
-![image-20241114143936894](/home/iti/README.assets/image-20241114143936894.png)
+![image-20241114143936894](README.assets/image-20241114143936894.png)
 
-![image-20241114144945681](/home/iti/README.assets/image-20241114144945681.png)
+![image-20241114144945681](README.assets/image-20241114144945681.png)
 
 
 
