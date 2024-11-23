@@ -718,7 +718,7 @@ int getTemperatureValue() {
       
         ```java
         android_app {
-            name: "vhall",
+            name: "anasCarServiceApp",
             srcs: ["src/**/*.java"],
             resource_dirs: ["res"],
             manifest: "AndroidManifest.xml",
@@ -762,7 +762,7 @@ int getTemperatureValue() {
 
 
 
-- Go to AOSP Path and Run 
+- Go to **AOSP** directory and open the terminal then Run 
 
   ```
   source build/envsetup.sh
@@ -782,4 +782,4 @@ int getTemperatureValue() {
 
   
 
-then Flash your image
+then Flash your image and run your App
