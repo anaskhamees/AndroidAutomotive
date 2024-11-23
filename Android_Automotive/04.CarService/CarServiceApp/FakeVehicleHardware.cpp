@@ -843,13 +843,13 @@ FakeVehicleHardware::ValueResultType FakeVehicleHardware::maybeGetSpecialValue(
         
          case toInt(TestVendorProperty::TemperatureAnasValue): {
               *isSpecialValue = true;
-            int rpm = getRpm();  // Call your function to retrieve the RPM value
-            result = mValuePool->obtainInt32(rpm);
-            ALOGD("RPM %d",rpm);
+            int temperatureValue = getTemperatureValue();  // Call your function to retrieve the RPM value
+            result = mValuePool->obtainInt32(temperatureValue);
+            ALOGD("temperatureValue %d",temperatureValue);
             result.value()->prop = propId;
             result.value()->areaId = 0;
             //result.value()->timestamp = elapsedRealtimeNano();
-            result.value()->timestamp = getRpm();
+            result.value()->timestamp = getTemperatureValue();
             return result;
  
         }

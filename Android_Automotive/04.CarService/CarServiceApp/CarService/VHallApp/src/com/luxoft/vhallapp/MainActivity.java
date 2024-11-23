@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private CarPropertyManager.CarPropertyEventCallback mPropertyCallback;
     private Button btnGpio;
     private TextView txtGetFuelValue;
-    private TextView txtGetRPMValue;
+    private TextView txtGetTempValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         
         btnGpio = findViewById(R.id.btnGpio);
         txtGetFuelValue = findViewById(R.id.txtGetGPIOValue);
-        txtGetRPMValue = findViewById(R.id.txtGetRPMValue);
+        txtGetTempValue = findViewById(R.id.txtGetRPMValue);
 
         
         mCar = Car.createCar(this);
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 else if (carPropertyValue.getPropertyId() == tempPropertyId) {
                     try {
                         int temp = (Integer) carPropertyValue.getValue();
-                        txtGetRPMValue.setText("Temp: " + temp + "c");
+                        txtGetTempValue.setText("Temp: " + temp + "c");
                         Log.d("MainActivity", "Temp updated to: " + temp + "c");
                     } catch (Exception e) {
                         Log.e("MainActivity", "Error processing Temp property value", e);
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 
                 currentFuelLevel = fuelTankValue.getValue();
                 txtGetFuelValue.setText("Fuel Tank Level:::: " + currentFuelLevel + "%");
-                txtGetRPMValue.setText("Temp: " + TempValue2 + "c");
+                txtGetTempValue.setText("Temp: " + TempValue2 + "c");
 
             } catch (SecurityException e) {
                 Toast.makeText(MainActivity.this, "Permission denied for FuelTank property.", Toast.LENGTH_SHORT).show();

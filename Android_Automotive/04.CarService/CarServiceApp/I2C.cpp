@@ -77,7 +77,7 @@ int16_t read_ads1115(int file) {
     return result;
 }
 
-int getRpm() {
+int getTemperatureValue() {
     const char* device = "/dev/i2c-1";  // Use the correct I2C bus (usually /dev/i2c-1 on Raspberry Pi)
     int file = open_i2c(device, ADS1115_ADDRESS);
     if (file < 0) return 1;
