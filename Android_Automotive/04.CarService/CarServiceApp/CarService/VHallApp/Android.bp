@@ -1,0 +1,27 @@
+android_app {
+    name: "vhall",
+    srcs: ["src/**/*.java"],
+    resource_dirs: ["res"],
+    manifest: "AndroidManifest.xml",
+    product_specific: true,
+    package_name: "com.luxoft.vhallapp",
+    static_libs: [
+        "androidx.core_core",
+        "androidx.appcompat_appcompat",
+        "com.google.android.material_material",
+        "androidx-constraintlayout_constraintlayout",
+        "androidx.navigation_navigation-fragment",
+        "androidx.navigation_navigation-ui",
+        "androidx.activity_activity",
+    ],
+
+    libs: ["android.car"],
+    
+
+    certificate: "platform",
+    privileged: true,
+    sdk_version: "module_current",
+    optimize: {
+        enabled: false,
+    },
+}

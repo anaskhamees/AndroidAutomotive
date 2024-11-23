@@ -111,38 +111,34 @@ bool GPIO_HAL::exportGPIO(int pin)
 >
 >This function is designed to "export" a specific GPIO pin for use by a user-space application on Linux. Exporting a GPIO pin makes it accessible through the Linux GPIO sysfs interface, located under `/sys/class/gpio`.
 >
->------
->
->### Line-by-Line Explanation
->
 >#### **Line: `std::ofstream exportFile("/sys/class/gpio/export");`**
 >
 >- **What it does:**
->  This creates an output file stream (`std::ofstream`) object named `exportFile`. It opens the file `/sys/class/gpio/export` for writing.
+> This creates an output file stream (`std::ofstream`) object named `exportFile`. It opens the file `/sys/class/gpio/export` for writing.
 >- **Purpose of `/sys/class/gpio/export`:**
->  In Linux, the `export` file in the GPIO sysfs interface is used to "export" a GPIO pin, making it accessible through sysfs. Writing the GPIO pin number to this file tells the kernel to expose the corresponding GPIO directory under `/sys/class/gpio/gpio<pin>`.
+> In Linux, the `export` file in the GPIO sysfs interface is used to "export" a GPIO pin, making it accessible through sysfs. Writing the GPIO pin number to this file tells the kernel to expose the corresponding GPIO directory under `/sys/class/gpio/gpio<pin>`.
 >- **Example:** If you write `22` to `/sys/class/gpio/export`, the kernel will create the directory `/sys/class/gpio/gpio22/`, where you can interact with the GPIO pin (e.g., setting its direction, value).
->- **Potential Error:**
->  If the `export` file cannot be opened (e.g., due to missing permissions or incorrect path), this line will fail, and `exportFile` will be in a failed state.
->
+> - **Potential Error:**
+> If the `export` file cannot be opened (e.g., due to missing permissions or incorrect path), this line will fail, and `exportFile` will be in a failed state.
+> 
 >------
 >
->#### **Line: `exportFile << pin;`**
+> #### **Line: `exportFile << pin;`**
 >
 >- **What it does:**
->  This writes the `pin` number (an integer) to the `exportFile`.
+> This writes the `pin` number (an integer) to the `exportFile`.
 >
 >- **How it works:**
->  The `<<` operator is used in C++ to write data to a file. In this case, the `pin` number is written as plain text to `/sys/class/gpio/export`.
->
+> The `<<` operator is used in C++ to write data to a file. In this case, the `pin` number is written as plain text to `/sys/class/gpio/export`.
+> 
 >- **Purpose:**
->  Writing the `pin` number to the `exportFile` tells the Linux kernel to export the specified GPIO pin. For example, if `pin = 17`, this operation effectively executes:
+> Writing the `pin` number to the `exportFile` tells the Linux kernel to export the specified GPIO pin. For example, if `pin = 17`, this operation effectively executes:
+> 
+> ```
 >
 >  ```
->  
->  ```
 >
->
+> 
 
 
 
@@ -282,54 +278,119 @@ bool GPIO_HAL::getGPIOValue(int pin, bool *pinValue)
 
 ### 2. Create I2c Driver
 
+ #### 2.1. I2c Header File
+
 ```c++
 #pragma once
-class I2C_HAL
-{
-	public:
-		bool getADCValue(int channel,int *ADCValue);
-
-};
+int getTemperatureValue();
 ```
 
- 
+#### 2.2. I2c Source File
 
 ```c++
 #include "I2C.h"
 #include <fstream>
 #include <string>
 
-bool I2C_HAL::getADCValue(int channel,int *ADCValue)
-{
-	std::string valuePath = "/dev/i2c-1/";
-std::ofstream valueFile(valuePath);
-    if (!valueFile) return false;
-    int adcValue = 0x4801C383 ;
-    switch (channel)
-    {
-    case 0:
-    break;
-    case 1:adcValue = 0x4801D383;
-    break;
-    case 2:adcValue = 0x4801E383;
-    break;
-    case 3:adcValue = 0x4801F383;
-    break;
-    default:
-    return false;
+
+#include <iostream>
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/ioctl.h>
+#include <linux/i2c-dev.h>
+#include <stdint.h>
+#include <stdexcept>
+
+/********** Make sure Your I2C Address*************/
+#define ADS1115_ADDRESS 0x49  // Default I2C address for ADS1115 
+#define ADS1115_CONVERSION_REGISTER 0x00
+#define ADS1115_CONFIG_REGISTER 0x01
+
+// Function to open I2C device and set slave address
+int open_i2c(const char* device, int address) {
+    int file = open(device, O_RDWR);
+    if (file < 0) {
+        std::cerr << "Failed to open the bus" << std::endl;
+        return -1;
     }
-    valueFile << adcValue  ;
-    adcValue = 0x4800;
-    valueFile << adcValue;
-    valueFile.close();
 
-    std::ifstream valueIn(valuePath);
-    if (!valueIn) return false;
-    int gpioValue;
-    valueIn >> gpioValue;
-    *value = (gpioValue == 1);
-     return valueIn.good();
+    if (ioctl(file, I2C_SLAVE, address) < 0) {
+        std::cerr << "Failed to acquire bus access and/or talk to slave" << std::endl;
+        close(file);
+        return -1;
+    }
+    return file;
+}
 
+// Function to configure the ADS1115 (set input channel)
+void configure_ads1115(int file, int channel) {
+    uint16_t config = 0xC383;  // Default settings for 16-bit, 128 SPS, ±4.096V range
+
+    // Set MUX to the selected channel
+    switch (channel) {
+        case 0: config |= 0x4000; break;  // AIN0
+        case 1: config |= 0x5000; break;  // AIN1
+        case 2: config |= 0x6000; break;  // AIN2
+        case 3: config |= 0x7000; break;  // AIN3
+        default:break;
+            //throw std::invalid_argument("Invalid channel. Choose from 0, 1, 2, 3.");
+    }
+
+    uint8_t data[3];
+    data[0] = ADS1115_CONFIG_REGISTER;
+    data[1] = (config >> 8) & 0xFF;  // High byte
+    data[2] = config & 0xFF;         // Low byte
+    if (write(file, data, 3) != 3) {
+        std::cerr << "Failed to write to the configuration register" << std::endl;
+        close(file);
+        exit(1);
+    }
+}
+
+// Function to read the conversion result from the ADS1115
+int16_t read_ads1115(int file) {
+    uint8_t buf[2];
+    buf[0] = ADS1115_CONVERSION_REGISTER;
+    if (write(file, buf, 1) != 1) {
+        std::cerr << "Failed to set conversion register" << std::endl;
+        close(file);
+        exit(1);
+    }
+
+    if (read(file, buf, 2) != 2) {
+        std::cerr << "Failed to read conversion result" << std::endl;
+        close(file);
+        exit(1);
+    }
+
+    // Swap byte order
+    int16_t result = (buf[0] << 8) | buf[1];
+    return result;
+}
+
+int getTemperatureValue() {
+    const char* device = "/dev/i2c-1";  // Use the correct I2C bus (usually /dev/i2c-1 on Raspberry Pi)
+    int file = open_i2c(device, ADS1115_ADDRESS);
+    if (file < 0) return 1;
+
+    int channel = 1;  // Set the channel to read (you can change this)
+    
+   // while (true) {
+   
+    configure_ads1115(file, channel);
+  
+    // Wait for the conversion to complete (typical delay 8 ms)
+    usleep(10000);
+    // Read the ADC value
+    int value = read_ads1115(file);
+    // Print the ADC value to the terminal
+    std::cout << "ADC Value for channel " << channel << ": " << value << std::endl;
+    // Optional delay before starting the next conversion (e.g., 1 second)
+    sleep(1);
+//}
+
+    close(file);
+    return value;
 }
 ```
 
@@ -401,13 +462,13 @@ std::ofstream valueFile(valuePath);
           
            case toInt(TestVendorProperty::TemperatureAnasValue): {
                 *isSpecialValue = true;
-              int rpm = getRpm();  // Call your function to retrieve the RPM value
-              result = mValuePool->obtainInt32(rpm);
-              ALOGD("RPM %d",rpm);
+              int temperatureValue = getTemperatureValue();  // Call your function to retrieve the RPM value
+              result = mValuePool->obtainInt32(temperatureValue);
+              ALOGD("temperatureValue %d",temperatureValue);
               result.value()->prop = propId;
               result.value()->areaId = 0;
               //result.value()->timestamp = elapsedRealtimeNano();
-              result.value()->timestamp = getRpm();
+              result.value()->timestamp = getTemperatureValue();
               return result;
    
           }
@@ -442,10 +503,16 @@ std::ofstream valueFile(valuePath);
 
 
 
-- Create the Application Layer
+- Create the Application Layer 
 
+- Create Android Application Package
+
+  ```
+  package com.luxoft.vhalapp;
+  ```
+  
   - Main Activity 
-
+  
   ```java
   package com.luxoft.vhallapp;
   
@@ -457,9 +524,7 @@ std::ofstream valueFile(valuePath);
   import android.widget.Button;
   import android.widget.TextView;
   import android.widget.Toast;
-  import android.os.Handler;
-  import android.os.Looper;
-  import android.os.Message;
+  
   import androidx.appcompat.app.AppCompatActivity;
   
   public class MainActivity extends AppCompatActivity {
@@ -468,64 +533,48 @@ std::ofstream valueFile(valuePath);
       private Car mCar;
       private CarPropertyManager.CarPropertyEventCallback mPropertyCallback;
       private Button btnGpio;
-      private TextView txtGetRPMValue;
-      private TextView txtLed;
+      private TextView txtGetFuelValue;
+      private TextView txtGetTempValue;
   
-      private Handler handler;  
       @Override
       protected void onCreate(Bundle savedInstanceState) {
           super.onCreate(savedInstanceState);
           setContentView(R.layout.activity_main);
-  
+          
           btnGpio = findViewById(R.id.btnGpio);
-          txtLed=findViewById(R.id.LEDtxt);
-          txtGetRPMValue = findViewById(R.id.txtGetRPMValue);
-  handler = new Handler(Looper.getMainLooper()){
-              @Override
-              public void handleMessage( Message msg) {
-                  super.handleMessage(msg);
-                  System.out.println("entered Handler");
-                  txtGetRPMValue.setText(msg.arg1+"");
+          txtGetFuelValue = findViewById(R.id.txtGetGPIOValue);
+          txtGetTempValue = findViewById(R.id.txtGetRPMValue);
   
-                  txtLed.setText(msg.arg1+"");
-  
-              }
-          };
           
           mCar = Car.createCar(this);
           mCarPropertyManager = (CarPropertyManager) mCar.getCarManager(CarPropertyManager.class);
   
          
-         int gpioPropertyID = 557842944;
+          int fuelTankPropertyId = 557842944;
+          int tempPropertyId = 557842945;
           int areaId = 0; 
-  
-          int temperaturePropertyID=557842945;
-         // int gpioPropertyID=557842944;
-  
   
           mPropertyCallback = new CarPropertyManager.CarPropertyEventCallback() {
               @Override
               public void onChangeEvent(CarPropertyValue carPropertyValue) {
-                  if (carPropertyValue.getPropertyId() == gpioPropertyID) {
+                  if (carPropertyValue.getPropertyId() == fuelTankPropertyId) {
                       try {
                           int fuelLevel = (Integer) carPropertyValue.getValue();
-                          txtLed.setText("Fuel Level: " + fuelLevel + "%");
-  
+                          txtGetFuelValue.setText("Fuel Tank Level: " + fuelLevel + "%");
                           Log.d("MainActivity", "Fuel tank updated to: " + fuelLevel + "%");
                       } catch (Exception e) {
                           Log.e("MainActivity", "Error processing FuelTank property value", e);
                       }
                   }
-                 else if (carPropertyValue.getPropertyId() == temperaturePropertyID) {
+                  else if (carPropertyValue.getPropertyId() == tempPropertyId) {
                       try {
-                          int tempLevel = (Integer) carPropertyValue.getValue();
-                          txtGetRPMValue.setText("Temp Level: " + tempLevel);
-                          Log.d("MainActivity", "Temp  updated to: " + tempLevel);
+                          int temp = (Integer) carPropertyValue.getValue();
+                          txtGetTempValue.setText("Temp: " + temp + "c");
+                          Log.d("MainActivity", "Temp updated to: " + temp + "c");
                       } catch (Exception e) {
                           Log.e("MainActivity", "Error processing Temp property value", e);
                       }
                   }
-  
               }
   
               @Override
@@ -534,20 +583,25 @@ std::ofstream valueFile(valuePath);
               }
           };
   
-          mCarPropertyManager.registerCallback(mPropertyCallback, gpioPropertyID, CarPropertyManager.SENSOR_RATE_ONCHANGE);
-          mCarPropertyManager.registerCallback(mPropertyCallback, temperaturePropertyID, CarPropertyManager.SENSOR_RATE_ONCHANGE);
+          mCarPropertyManager.registerCallback(mPropertyCallback, fuelTankPropertyId, CarPropertyManager.SENSOR_RATE_ONCHANGE);
+          mCarPropertyManager.registerCallback(mPropertyCallback, tempPropertyId, CarPropertyManager.SENSOR_RATE_ONCHANGE);
   
           btnGpio.setOnClickListener(v -> {
               try {
-                  CarPropertyValue<Integer> fuelTankValue = mCarPropertyManager.getProperty(Integer.class, gpioPropertyID, areaId);
+                  CarPropertyValue<Integer> fuelTankValue = mCarPropertyManager.getProperty(Integer.class, fuelTankPropertyId, areaId);
+                  CarPropertyValue<Integer> TempValue = mCarPropertyManager.getProperty(Integer.class, tempPropertyId, areaId);
+                  int TempValue2= TempValue.getValue();
                   int currentFuelLevel = fuelTankValue.getValue();
                   
                   if (currentFuelLevel == 1) {
-                      mCarPropertyManager.setProperty(Integer.class, gpioPropertyID, areaId, 0);
+                      mCarPropertyManager.setProperty(Integer.class, fuelTankPropertyId, areaId, 0);
                   } else {
-                      mCarPropertyManager.setProperty(Integer.class, gpioPropertyID, areaId, 1);
+                      mCarPropertyManager.setProperty(Integer.class, fuelTankPropertyId, areaId, 1);
                   }
                   
+                  currentFuelLevel = fuelTankValue.getValue();
+                  txtGetFuelValue.setText("Fuel Tank Level:::: " + currentFuelLevel + "%");
+                  txtGetTempValue.setText("Temp: " + TempValue2 + "c");
   
               } catch (SecurityException e) {
                   Toast.makeText(MainActivity.this, "Permission denied for FuelTank property.", Toast.LENGTH_SHORT).show();
@@ -556,28 +610,6 @@ std::ofstream valueFile(valuePath);
                   e.printStackTrace();
               }
           });
-  
-  
-           new Thread(){
-              @Override
-              public void run() {
-                  super.run();
-                  while (true){
-  
-                      Message msg = handler.obtainMessage();
-                      
-  
-                      CarPropertyValue<Integer> propertyValue = mCarPropertyManager.getProperty(Integer.class, temperaturePropertyID, areaId);
-                 msg.arg1=  propertyValue.getValue();
-                      try {
-                          sleep(500);
-                      } catch (InterruptedException e) {
-                          throw new RuntimeException(e);
-                      }
-                  }
-              }
-          }.start();
-  
       }
   
       @Override
@@ -587,74 +619,59 @@ std::ofstream valueFile(valuePath);
               mCarPropertyManager.unregisterCallback(mPropertyCallback);
           }
       }
-  
-      
-         
-       
   }
-  
   ```
-
+  
   - XML File
-
+  
     ```xml
     <?xml version="1.0" encoding="utf-8"?>
-    <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-       package="com.luxoft.vhallapp">
-        <uses-permission android:name="android.car.permission.READ_CAR_PROPERTY" />
-        <uses-permission android:name="android.car.permission.WRITE_CAR_PROPERTY" />
-            <uses-permission android:name="android.car.permission.FuelTank" />
-        <uses-permission android:name="android.car.permission.CAR_VENDOR_EXTENSION"/>
-        <uses-permission android:name="com.vendor.permission.FUELTANK" />
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
     
-        <!--/******************************anas***********************************/    -->
-        <uses-permission android:name="android.car.permission.TEMPERATURE"/>
-        <uses-permission android:name="android.car.permission.GPIO"/>
-        <!--/******************************anas***********************************/    -->
+        <TextView
+            android:id="@+id/txtGetGPIOValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Hello World!"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     
-        <uses-permission android:name="android.car.permission.FUELDOOR"/>
-        <uses-permission android:name="com.vendor.permission.FUELDOOR" />
-        <uses-permission android:name="android.car.permission.BATTERY"/>
-        <uses-permission android:name="com.vendor.permission.BATTERY" />
+        <TextView
+            android:id="@+id/txtGetTempValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Hello World!"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtGetGPIOValue"/>
     
+        <Button
+            android:id="@+id/btnGpio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Led"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtGetTempValue" />
     
-        
-    
-        
-    
-            
-            <uses-permission android:name="android.car.hardware.property.VehicleVendorPermission.PERMISSION_GET_CAR_VENDOR_CATEGORY_INFO" />
-            <uses-permission android:name="android.car.hardware.property.VehicleVendorPermission.PERMISSION_SET_CAR_VENDOR_CATEGORY_SEAT" />
-    
-    
-    
-        <application
-            android:allowBackup="true"
-            android:dataExtractionRules="@xml/data_extraction_rules"
-            android:fullBackupContent="@xml/backup_rules"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
-            android:supportsRtl="true"
-            android:theme="@style/Theme.VHallApp"
-            tools:targetApi="31">
-            <activity
-                android:name=".MainActivity"
-                android:exported="true">
-                <intent-filter>
-                    <action android:name="android.intent.action.MAIN" />
-    
-                    <category android:name="android.intent.category.LAUNCHER" />
-                </intent-filter>
-            </activity>
-        </application>
-    
-    </manifest>
+    </androidx.constraintlayout.widget.ConstraintLayout>
     ```
-
+    
     - Manifest File 
-
+    
       ```xml
       <?xml version="1.0" encoding="utf-8"?>
       <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -665,22 +682,8 @@ std::ofstream valueFile(valuePath);
               <uses-permission android:name="android.car.permission.FuelTank" />
           <uses-permission android:name="android.car.permission.CAR_VENDOR_EXTENSION"/>
           <uses-permission android:name="com.vendor.permission.FUELTANK" />
-      
-          <!--/******************************anas***********************************/    -->
-          <uses-permission android:name="android.car.permission.TEMPERATURE"/>
           <uses-permission android:name="android.car.permission.GPIO"/>
-          <!--/******************************anas***********************************/    -->
-      
-          <uses-permission android:name="android.car.permission.FUELDOOR"/>
-          <uses-permission android:name="com.vendor.permission.FUELDOOR" />
-          <uses-permission android:name="android.car.permission.BATTERY"/>
-          <uses-permission android:name="com.vendor.permission.BATTERY" />
-      
-      
-          
-      
-          
-      
+          <uses-permission android:name="android.car.permission.TEMPERATURE"/>
               
               <uses-permission android:name="android.car.hardware.property.VehicleVendorPermission.PERMISSION_GET_CAR_VENDOR_CATEGORY_INFO" />
               <uses-permission android:name="android.car.hardware.property.VehicleVendorPermission.PERMISSION_SET_CAR_VENDOR_CATEGORY_SEAT" />
@@ -710,10 +713,42 @@ std::ofstream valueFile(valuePath);
       
       </manifest>
       ```
+      
+      - **Android BluePrint File (Android.bp)**
+      
+        ```java
+        android_app {
+            name: "vhall",
+            srcs: ["src/**/*.java"],
+            resource_dirs: ["res"],
+            manifest: "AndroidManifest.xml",
+            product_specific: true,
+            package_name: "com.luxoft.vhallapp",
+            static_libs: [
+                "androidx.core_core",
+                "androidx.appcompat_appcompat",
+                "com.google.android.material_material",
+                "androidx-constraintlayout_constraintlayout",
+                "androidx.navigation_navigation-fragment",
+                "androidx.navigation_navigation-ui",
+                "androidx.activity_activity",
+            ],
+        
+            libs: ["android.car"],
+            
+        
+            certificate: "platform",
+            privileged: true,
+            sdk_version: "module_current",
+            optimize: {
+                enabled: false,
+            },
+        }
+        ```
+      
+        
 
-       
-
-![image-20241122024046066](README.assets/image-20241122024046066.png)
+![image-20241122024046066**](README.assets/image-20241122024046066.png)
 
 - Add the name of your App in rpi4 Make file , go to this path and add your app
 
